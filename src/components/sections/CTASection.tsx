@@ -1,8 +1,15 @@
 import { ArrowRight } from 'lucide-react'
 import Reveal from '../Reveal'
 import BackgroundDecor from '../BackgroundDecor'
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 export default function CTASection() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const c = t.cta
+  const isEn = language === 'en'
+
   return (
     <section id="contacto" className="relative overflow-hidden bg-ivory py-24 md:py-32">
       <BackgroundDecor tone="light" />
@@ -17,18 +24,17 @@ export default function CTASection() {
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full bg-champagne" />
                 <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/60">
-                  Hablemos
+                  {isEn ? 'Let\'s talk' : 'Hablemos'}
                 </span>
               </div>
               <h2
                 className="text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-[1.1]"
                 style={{ letterSpacing: '-0.03em' }}
               >
-                Construyamos nuevas oportunidades juntos.
+                {c.title}
               </h2>
               <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">
-                Conecta con DSTD Enterprises y conoce cómo nuestras divisiones
-                pueden aportar valor a tu próximo proyecto.
+                {c.subtitle}
               </p>
 
               <div className="mt-9 flex flex-wrap gap-4">
@@ -36,7 +42,7 @@ export default function CTASection() {
                   href="#contacto"
                   className="group inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 font-medium text-navy transition-colors duration-300 hover:bg-champagne hover:text-white"
                 >
-                  Contactar
+                  {c.button}
                   <ArrowRight
                     size={18}
                     className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -46,7 +52,7 @@ export default function CTASection() {
                   href="#empresas"
                   className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy"
                 >
-                  Ver empresas
+                  {c.explore}
                 </a>
               </div>
             </div>

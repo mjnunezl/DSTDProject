@@ -7,15 +7,21 @@ import BackgroundDecor from '../components/BackgroundDecor'
 import PageHero from '../components/PageHero'
 import SEO from '../components/SEO'
 import { seoMeta } from '../data/seo'
+import { useLanguage } from '../context/LanguageContext'
+import { getTranslation } from '../i18n/translations'
 
 export default function Empresas() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const isEn = language === 'en'
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/empresas']} pathname="/empresas" />
       <PageHero
-        eyebrow="Divisiones"
-        title="Cuatro divisiones, una misma exigencia de calidad."
-        description="Cada empresa del grupo opera con identidad propia y estándares compartidos de seriedad, cumplimiento y excelencia."
+        eyebrow={isEn ? 'Divisions' : 'Divisiones'}
+        title={isEn ? 'Four divisions, one same quality standard.' : 'Cuatro divisiones, una misma exigencia de calidad.'}
+        description={t.companies.subtitle}
       />
 
       {/* Companies Grid */}
@@ -24,9 +30,9 @@ export default function Empresas() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <Reveal>
             <SectionHeading
-              eyebrow="Nuestras empresas"
+              eyebrow={t.companies.eyebrow}
               tone="light"
-              title="Conoce cada división del grupo."
+              title={isEn ? 'Get to know each division of the group.' : 'Conoce cada división del grupo.'}
             />
           </Reveal>
 
@@ -62,16 +68,16 @@ export default function Empresas() {
                       {c.short}
                     </span>
                     <h3 className="mt-2 text-2xl md:text-3xl font-medium text-white">
-                      {c.name}
+                      {((t.companies as unknown) as Record<string, { name: string }>)[c.id]?.name ?? c.name}
                     </h3>
                     <p className="mt-3 max-w-md text-sm md:text-base text-white/80 leading-relaxed">
-                      {c.description}
+                      {((t.companies as unknown) as Record<string, { description: string }>)[c.id]?.description ?? c.description}
                     </p>
                     <Link
                       to={`/empresas/${c.id}`}
                       className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-white transition-colors duration-300 group-hover:text-[color:var(--accent)]"
                     >
-                      Conocer más
+                      {isEn ? 'Learn more' : 'Conocer más'}
                       <ArrowRight
                         size={16}
                         className="transition-transform duration-300 group-hover:translate-x-1"

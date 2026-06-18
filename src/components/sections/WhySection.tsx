@@ -2,36 +2,43 @@ import { Network, Layers3, BadgeCheck, ClipboardCheck, LineChart } from 'lucide-
 import Reveal from '../Reveal'
 import SectionHeading from '../SectionHeading'
 import BackgroundDecor from '../BackgroundDecor'
-
-const benefits = [
-  {
-    icon: Network,
-    title: 'Ecosistema empresarial integrado',
-    text: 'Divisiones que se complementan y potencian entre sí.',
-  },
-  {
-    icon: Layers3,
-    title: 'Soluciones para diferentes sectores',
-    text: 'Cobertura amplia: construcción, industria, inmobiliaria y agregados.',
-  },
-  {
-    icon: BadgeCheck,
-    title: 'Identidad corporativa sólida',
-    text: 'Una marca madre que respalda cada empresa del grupo.',
-  },
-  {
-    icon: ClipboardCheck,
-    title: 'Enfoque en calidad y cumplimiento',
-    text: 'Estándares consistentes y compromiso con cada entrega.',
-  },
-  {
-    icon: LineChart,
-    title: 'Visión de crecimiento a largo plazo',
-    text: 'Decisiones orientadas a un desarrollo sostenible y duradero.',
-  },
-]
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 export default function WhySection() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const w = t.why
+  const isEn = language === 'en'
+
+  const benefits = [
+    {
+      icon: Network,
+      title: w.ecosystem.title,
+      text: w.ecosystem.text,
+    },
+    {
+      icon: Layers3,
+      title: w.solutions.title,
+      text: w.solutions.text,
+    },
+    {
+      icon: BadgeCheck,
+      title: isEn ? 'Solid corporate identity' : 'Identidad corporativa sólida',
+      text: isEn ? 'A parent brand that backs every company in the group.' : 'Una marca madre que respalda cada empresa del grupo.',
+    },
+    {
+      icon: ClipboardCheck,
+      title: isEn ? 'Focus on quality and compliance' : 'Enfoque en calidad y cumplimiento',
+      text: isEn ? 'Consistent standards and commitment to every delivery.' : 'Estándares consistentes y compromiso con cada entrega.',
+    },
+    {
+      icon: LineChart,
+      title: isEn ? 'Long-term growth vision' : 'Visión de crecimiento a largo plazo',
+      text: isEn ? 'Decisions oriented to sustainable and lasting development.' : 'Decisiones orientadas a un desarrollo sostenible y duradero.',
+    },
+  ]
+
   return (
     <section className="relative overflow-hidden bg-ivory py-24 md:py-32">
       <BackgroundDecor tone="light" dots={false} />
@@ -40,10 +47,10 @@ export default function WhySection() {
           <div className="lg:col-span-5">
             <Reveal>
               <SectionHeading
-                eyebrow="Por qué elegir DSTD"
+                eyebrow={w.eyebrow}
                 tone="light"
-                title="Un socio empresarial pensado para construir a largo plazo."
-                description="No somos una sola empresa: somos un grupo estructurado para aportar valor real en cada proyecto."
+                title={w.title}
+                description={w.subtitle}
               />
             </Reveal>
           </div>

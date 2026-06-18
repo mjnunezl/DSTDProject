@@ -2,57 +2,63 @@ import { HardHat, Factory, Building, Mountain, Handshake, Briefcase } from 'luci
 import Reveal from '../Reveal'
 import SectionHeading from '../SectionHeading'
 import BackgroundDecor from '../BackgroundDecor'
-
-const capabilities = [
-  {
-    icon: HardHat,
-    title: 'Obras y construcción',
-    text: 'Ejecución y soporte para proyectos de construcción de distintas escalas.',
-    span: 'md:col-span-2 lg:col-span-2',
-  },
-  {
-    icon: Factory,
-    title: 'Materiales industriales',
-    text: 'Suministro de blocks, varillas, cemento, vigas y más.',
-    span: '',
-  },
-  {
-    icon: Building,
-    title: 'Proyectos inmobiliarios',
-    text: 'Desarrollo, inversión y financiamiento con visión a futuro.',
-    span: 'md:col-span-2 lg:col-span-1',
-  },
-  {
-    icon: Mountain,
-    title: 'Suministro de agregados',
-    text: 'Arena, grava y piedra para obras y proyectos.',
-    span: '',
-  },
-  {
-    icon: Handshake,
-    title: 'Alianzas comerciales',
-    text: 'Colaboraciones estratégicas que multiplican el alcance del grupo.',
-    span: 'md:col-span-2 lg:col-span-2',
-  },
-  {
-    icon: Briefcase,
-    title: 'Desarrollo corporativo',
-    text: 'Estructura empresarial sólida orientada al crecimiento sostenible.',
-    span: '',
-  },
-]
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 export default function ProjectsSection() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const isEn = language === 'en'
+
+  const capabilities = [
+    {
+      icon: HardHat,
+      title: isEn ? 'Construction works' : 'Obras y construcción',
+      text: isEn ? 'Execution and support for construction projects of different scales.' : 'Ejecución y soporte para proyectos de construcción de distintas escalas.',
+      span: 'md:col-span-2 lg:col-span-2',
+    },
+    {
+      icon: Factory,
+      title: isEn ? 'Industrial materials' : 'Materiales industriales',
+      text: isEn ? 'Supply of blocks, rebar, cement, beams and more.' : 'Suministro de blocks, varillas, cemento, vigas y más.',
+      span: '',
+    },
+    {
+      icon: Building,
+      title: isEn ? 'Real estate projects' : 'Proyectos inmobiliarios',
+      text: isEn ? 'Development, investment and financing with a vision for the future.' : 'Desarrollo, inversión y financiamiento con visión a futuro.',
+      span: 'md:col-span-2 lg:col-span-1',
+    },
+    {
+      icon: Mountain,
+      title: isEn ? 'Aggregate supply' : 'Suministro de agregados',
+      text: isEn ? 'Sand, gravel and stone for works and projects.' : 'Arena, grava y piedra para obras y proyectos.',
+      span: '',
+    },
+    {
+      icon: Handshake,
+      title: isEn ? 'Commercial alliances' : 'Alianzas comerciales',
+      text: isEn ? 'Strategic collaborations that multiply the group\'s reach.' : 'Colaboraciones estratégicas que multiplican el alcance del grupo.',
+      span: 'md:col-span-2 lg:col-span-2',
+    },
+    {
+      icon: Briefcase,
+      title: isEn ? 'Corporate development' : 'Desarrollo corporativo',
+      text: isEn ? 'Solid business structure oriented to sustainable growth.' : 'Estructura empresarial sólida orientada al crecimiento sostenible.',
+      span: '',
+    },
+  ]
+
   return (
     <section id="proyectos" className="relative overflow-hidden bg-ivory py-24 md:py-32">
       <BackgroundDecor tone="light" />
       <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
         <Reveal>
           <SectionHeading
-            eyebrow="Proyectos y capacidades"
+            eyebrow={t.projects.eyebrow}
             tone="light"
-            title="Capacidades que cubren todo el ciclo del desarrollo."
-            description="Desde la materia prima hasta el proyecto terminado, el grupo aporta valor en cada etapa."
+            title={t.projects.title}
+            description={t.projects.subtitle}
           />
         </Reveal>
 

@@ -2,14 +2,19 @@ import { useRef, useEffect } from 'react'
 import AssistantMessage from './AssistantMessage'
 import QuickQuestions from './QuickQuestions'
 import type { ChatMessage } from '../../data/assistantKnowledge'
+import type { Language } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 interface Props {
   messages: ChatMessage[]
   onQuickQuestion: (question: string) => void
+  language: Language
 }
 
-export default function AssistantWindow({ messages, onQuickQuestion }: Props) {
+export default function AssistantWindow({ messages, onQuickQuestion, language }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null)
+  const t = getTranslation(language)
+  const a = t.assistant
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
@@ -33,8 +38,8 @@ export default function AssistantWindow({ messages, onQuickQuestion }: Props) {
             <span className="text-sm text-champagne font-semibold">D</span>
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-white leading-none">Asistente DSTD</h3>
-            <p className="mt-0.5 text-[11px] text-white/60">Estoy aquí para ayudarte</p>
+            <h3 className="text-sm font-semibold text-white leading-none">{a.title}</h3>
+            <p className="mt-0.5 text-[11px] text-white/60">{a.subtitle}</p>
           </div>
         </div>
       </div>
@@ -49,8 +54,8 @@ export default function AssistantWindow({ messages, onQuickQuestion }: Props) {
 
       {/* Quick Questions - always visible */}
       <div className="shrink-0 border-t border-navy/5 px-4 py-3 bg-white/60">
-        <p className="mb-2 text-[11px] uppercase tracking-wider text-navy/40 font-medium">Preguntas rápidas</p>
-        <QuickQuestions onSelect={onQuickQuestion} />
+        <p className="mb-2 text-[11px] uppercase tracking-wider text-navy/40 font-medium">{a.quickQuestions}</p>
+        <QuickQuestions onSelect={onQuickQuestion} questions={a.questions} />
       </div>
     </div>
   )

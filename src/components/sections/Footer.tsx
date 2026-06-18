@@ -1,24 +1,28 @@
 import { Link } from 'react-router-dom'
 import { MapPin, Mail, Phone } from 'lucide-react'
 import BackgroundDecor from '../BackgroundDecor'
-
-const navLinks = [
-  { label: 'Inicio', to: '/' },
-  { label: 'Empresas', to: '/empresas' },
-  { label: 'Proyectos', to: '/proyectos' },
-  { label: 'Nosotros', to: '/nosotros' },
-  { label: 'Contacto', to: '/contacto' },
-]
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 const companyLinks = [
-  { name: 'DSTD Hormigones', to: '/empresas/hormigones' },
-  { name: 'DSTD Industrias', to: '/empresas/industrias' },
-  { name: 'DSTD Immobiliare', to: '/empresas/immobiliare' },
-  { name: 'DSTD Agregados', to: '/empresas/agregados' },
+  { key: 'hormigones', to: '/empresas/hormigones' },
+  { key: 'industrias', to: '/empresas/industrias' },
+  { key: 'immobiliare', to: '/empresas/immobiliare' },
+  { key: 'agregados', to: '/empresas/agregados' },
 ]
 
 export default function Footer() {
   const year = new Date().getFullYear()
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
+  const navLinks = [
+    { label: t.nav.home, to: '/' },
+    { label: t.nav.companies, to: '/empresas' },
+    { label: t.nav.projects, to: '/proyectos' },
+    { label: t.nav.about, to: '/nosotros' },
+    { label: t.nav.contact, to: '/contacto' },
+  ]
 
   return (
     <footer className="relative overflow-hidden bg-navy-deep text-white">
@@ -37,15 +41,16 @@ export default function Footer() {
               </div>
             </div>
             <p className="mt-5 max-w-xs text-sm text-white/60 leading-relaxed">
-              Grupo empresarial enfocado en construcción, industria, bienes
-              raíces y agregados, con visión de desarrollo y crecimiento.
+              {language === 'es'
+                ? 'Grupo empresarial enfocado en construcción, industria, bienes raíces y agregados, con visión de desarrollo y crecimiento.'
+                : 'Business group focused on construction, industry, real estate and aggregates, with a vision for development and growth.'}
             </p>
           </div>
 
           {/* Links */}
           <div className="lg:col-span-2">
             <h4 className="text-xs uppercase tracking-[0.2em] text-white/40">
-              Navegación
+              {language === 'es' ? 'Navegación' : 'Navigation'}
             </h4>
             <ul className="mt-5 space-y-3">
               {navLinks.map((l) => (
@@ -64,16 +69,16 @@ export default function Footer() {
           {/* Companies */}
           <div className="lg:col-span-3">
             <h4 className="text-xs uppercase tracking-[0.2em] text-white/40">
-              Empresas
+              {t.footer.divisions}
             </h4>
             <ul className="mt-5 space-y-3">
               {companyLinks.map((c) => (
-                <li key={c.name}>
+                <li key={c.key}>
                   <Link
                     to={c.to}
                     className="text-sm text-white/75 transition-colors duration-300 hover:text-champagne"
                   >
-                    {c.name}
+                    {((t.companies as unknown) as Record<string, { name: string }>)[c.key]?.name ?? c.key}
                   </Link>
                 </li>
               ))}
@@ -83,7 +88,7 @@ export default function Footer() {
           {/* Contact */}
           <div className="lg:col-span-3">
             <h4 className="text-xs uppercase tracking-[0.2em] text-white/40">
-              Contacto
+              {t.footer.contact}
             </h4>
             <ul className="mt-5 space-y-4 text-sm text-white/75">
               <li className="flex items-center gap-3">
@@ -104,12 +109,12 @@ export default function Footer() {
 
         <div className="mt-14 border-t border-white/10 pt-7 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-white/50">
-            © {year} DSTD Enterprises. Todos los derechos reservados.
+            © {year} DSTD Enterprises. {t.footer.rights}
           </p>
           <div className="flex items-center gap-4 text-xs text-white/40">
-            <Link to="/privacidad" className="transition-colors hover:text-champagne">Política de Privacidad</Link>
+            <Link to="/privacidad" className="transition-colors hover:text-champagne">{t.footer.privacy}</Link>
             <span>·</span>
-            <Link to="/terminos" className="transition-colors hover:text-champagne">Términos de Uso</Link>
+            <Link to="/terminos" className="transition-colors hover:text-champagne">{t.footer.terms}</Link>
           </div>
         </div>
       </div>

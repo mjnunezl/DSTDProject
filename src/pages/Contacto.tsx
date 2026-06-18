@@ -10,15 +10,22 @@ import SEO from '../components/SEO'
 import { seoMeta } from '../data/seo'
 import { companies } from '../data/companies'
 import { whatsappMessages } from '../utils/whatsapp'
+import { useLanguage } from '../context/LanguageContext'
+import { getTranslation } from '../i18n/translations'
 
 export default function Contacto() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const c = t.contact
+  const isEn = language === 'en'
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/contacto']} pathname="/contacto" />
       <PageHero
-        eyebrow="Contacto"
-        title="Construyamos nuevas oportunidades juntos."
-        description="Conecta con DSTD Enterprises y conoce cómo nuestras divisiones pueden aportar valor a tu próximo proyecto."
+        eyebrow={c.pageTitle}
+        title={c.pageSubtitle}
+        description={isEn ? 'Connect with DSTD Enterprises and learn how our divisions can add value to your next project.' : 'Conecta con DSTD Enterprises y conoce cómo nuestras divisiones pueden aportar valor a tu próximo proyecto.'}
       />
 
       {/* Contact Grid */}
@@ -29,27 +36,27 @@ export default function Contacto() {
             {/* Form */}
             <Reveal>
               <SectionHeading
-                eyebrow="Escríbenos"
+                eyebrow={isEn ? 'Write us' : 'Escríbenos'}
                 tone="light"
-                title="Envíanos un mensaje."
+                title={c.formTitle}
               />
               <div className="mt-8">
                 <ContactForm
                   fields={[
-                    { name: 'name', label: 'Nombre completo', required: true, placeholder: 'Tu nombre' },
-                    { name: 'email', label: 'Correo electrónico', type: 'email', required: true, placeholder: 'tu@email.com' },
-                    { name: 'phone', label: 'Teléfono', placeholder: '829-367-2491' },
-                    { name: 'company', label: 'Empresa de interés', type: 'select', options: [
-                      { value: '', label: 'Selecciona una opción' },
+                    { name: 'name', label: c.form.name, required: true, placeholder: isEn ? 'Your name' : 'Tu nombre' },
+                    { name: 'email', label: c.form.email, type: 'email', required: true, placeholder: 'tu@email.com' },
+                    { name: 'phone', label: isEn ? 'Phone' : 'Teléfono', placeholder: '829-367-2491' },
+                    { name: 'company', label: isEn ? 'Company of interest' : 'Empresa de interés', type: 'select', options: [
+                      { value: '', label: isEn ? 'Select an option' : 'Selecciona una opción' },
                       { value: 'general', label: 'DSTD Enterprises (General)' },
                       { value: 'hormigones', label: 'DSTD Hormigones' },
                       { value: 'industrias', label: 'DSTD Industrias' },
                       { value: 'immobiliare', label: 'DSTD Immobiliare' },
                       { value: 'agregados', label: 'DSTD Agregados' },
                     ]},
-                    { name: 'message', label: 'Mensaje', type: 'textarea', required: true, placeholder: 'Cuéntanos sobre tu proyecto o consulta...' },
+                    { name: 'message', label: c.form.message, type: 'textarea', required: true, placeholder: isEn ? 'Tell us about your project or inquiry...' : 'Cuéntanos sobre tu proyecto o consulta...' },
                   ]}
-                  submitLabel="Enviar mensaje"
+                  submitLabel={c.form.send}
                 />
               </div>
             </Reveal>
@@ -58,9 +65,9 @@ export default function Contacto() {
             <Reveal delay={150}>
               <div className="space-y-8">
                 <div>
-                  <h3 className="text-xl md:text-2xl font-medium text-navy">Datos de contacto</h3>
+                  <h3 className="text-xl md:text-2xl font-medium text-navy">{c.infoTitle}</h3>
                   <p className="mt-2 text-sm md:text-base text-graphite/65 leading-relaxed">
-                    Estamos ubicados en La Vega, República Dominicana y listos para atenderte.
+                    {isEn ? 'We are located in La Vega, Dominican Republic and ready to assist you.' : 'Estamos ubicados en La Vega, República Dominicana y listos para atenderte.'}
                   </p>
                 </div>
 
@@ -70,7 +77,7 @@ export default function Contacto() {
                       <MapPin size={20} className="text-champagne" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <div className="font-medium text-navy">Ubicación</div>
+                      <div className="font-medium text-navy">{c.location}</div>
                       <div className="text-sm text-graphite/60">La Vega, República Dominicana</div>
                     </div>
                   </div>
@@ -79,7 +86,7 @@ export default function Contacto() {
                       <Mail size={20} className="text-champagne" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <div className="font-medium text-navy">Correo</div>
+                      <div className="font-medium text-navy">{c.email}</div>
                       <div className="text-sm text-graphite/60">dstdenterprises@gmail.com</div>
                     </div>
                   </div>
@@ -88,13 +95,13 @@ export default function Contacto() {
                       <Phone size={20} className="text-champagne" strokeWidth={1.5} />
                     </div>
                     <div>
-                      <div className="font-medium text-navy">Teléfono</div>
+                      <div className="font-medium text-navy">{c.whatsapp}</div>
                       <div className="text-sm text-graphite/60">829-367-2491</div>
                     </div>
                   </div>
                 </div>
 
-                <WhatsAppButton variant="inline" message={whatsappMessages.general} label="Escríbenos por WhatsApp" />
+                <WhatsAppButton variant="inline" message={whatsappMessages.general} label={isEn ? 'Write us on WhatsApp' : 'Escríbenos por WhatsApp'} />
               </div>
             </Reveal>
           </div>
@@ -106,7 +113,7 @@ export default function Contacto() {
         <BackgroundDecor tone="light" dots={false} />
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <Reveal>
-            <SectionHeading eyebrow="Divisiones" tone="light" title="Contacto por división." />
+            <SectionHeading eyebrow={t.footer.divisions} tone="light" title={isEn ? 'Contact by division.' : 'Contacto por división.'} />
           </Reveal>
 
           <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -117,13 +124,13 @@ export default function Contacto() {
                   <div className="text-xs font-semibold uppercase tracking-[0.2em]" style={{ color: c.accent }}>
                     {c.short}
                   </div>
-                  <h3 className="mt-2 text-xl font-medium text-navy">{c.name}</h3>
-                  <p className="mt-2 text-sm text-graphite/65 leading-relaxed">{c.description}</p>
+                  <h3 className="mt-2 text-xl font-medium text-navy">{((t.companies as unknown) as Record<string, { name: string }>)[c.id]?.name ?? c.name}</h3>
+                  <p className="mt-2 text-sm text-graphite/65 leading-relaxed">{((t.companies as unknown) as Record<string, { description: string }>)[c.id]?.description ?? c.description}</p>
                   <Link
                     to={`/empresas/${c.id}`}
                     className="mt-5 inline-flex items-center gap-2 text-sm font-medium text-navy transition-colors duration-300 hover:text-champagne"
                   >
-                    Conocer más
+                    {isEn ? 'Learn more' : 'Conocer más'}
                     <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" />
                   </Link>
                 </div>

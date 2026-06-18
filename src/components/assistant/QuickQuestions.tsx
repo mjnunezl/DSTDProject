@@ -1,13 +1,12 @@
-import { quickQuestions } from '../../data/assistantKnowledge'
-
 interface Props {
   onSelect: (question: string) => void
+  questions: readonly string[]
 }
 
-export default function QuickQuestions({ onSelect }: Props) {
+export default function QuickQuestions({ onSelect, questions }: Props) {
   return (
     <div className="flex flex-wrap gap-2">
-      {quickQuestions.map((q) => (
+      {questions.map((q) => (
         <button
           key={q}
           onClick={() => onSelect(q)}

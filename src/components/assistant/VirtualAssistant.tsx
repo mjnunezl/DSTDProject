@@ -1,15 +1,26 @@
 import { useState } from 'react'
 import AssistantButton from './AssistantButton'
 import AssistantWindow from './AssistantWindow'
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 import {
   getQuickQuestionResponse,
-  initialMessage,
   type ChatMessage,
 } from '../../data/assistantKnowledge'
 
 export default function VirtualAssistant() {
   const [open, setOpen] = useState(false)
-  const [messages, setMessages] = useState<ChatMessage[]>([initialMessage])
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const a = t.assistant
+
+  const welcomeMsg: ChatMessage = {
+    id: 'welcome',
+    sender: 'assistant',
+    text: a.welcome,
+  }
+
+  const [messages, setMessages] = useState<ChatMessage[]>([welcomeMsg])
 
   const handleToggle = () => {
     setOpen((prev) => !prev)
@@ -24,7 +35,7 @@ export default function VirtualAssistant() {
     setMessages((prev) => [...prev, userMsg])
 
     setTimeout(() => {
-      const response = getQuickQuestionResponse(question)
+      const response = getQuickQuestionResponse(question, language)
       setMessages((prev) => [...prev, response])
     }, 400)
   }
@@ -43,6 +54,7 @@ export default function VirtualAssistant() {
         <AssistantWindow
           messages={messages}
           onQuickQuestion={handleQuickQuestion}
+          language={language}
         />
       </div>
 

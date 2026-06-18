@@ -1,14 +1,8 @@
 import { useState } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { Menu, X } from 'lucide-react'
-
-const navLinks = [
-  { label: 'Inicio', to: '/' },
-  { label: 'Empresas', to: '/empresas' },
-  { label: 'Proyectos', to: '/proyectos' },
-  { label: 'Nosotros', to: '/nosotros' },
-  { label: 'Contacto', to: '/contacto' },
-]
+import { useLanguage } from '../context/LanguageContext'
+import { getTranslation } from '../i18n/translations'
 
 function makeLinkClass(overlay: boolean) {
   return function linkClass({ isActive }: { isActive: boolean }) {
@@ -34,6 +28,20 @@ export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false)
   const { pathname } = useLocation()
   const overlay = pathname === '/' || /^\/empresas\/.+/.test(pathname)
+  const { language, toggleLanguage } = useLanguage()
+  const t = getTranslation(language)
+
+  const navLinks = [
+    { label: t.nav.home, to: '/' },
+    { label: t.nav.companies, to: '/empresas' },
+    { label: t.nav.projects, to: '/proyectos' },
+    { label: t.nav.about, to: '/nosotros' },
+    { label: t.nav.contact, to: '/contacto' },
+  ]
+
+  const langBtnClass = overlay
+    ? 'bg-white/10 border-white/20 text-white hover:bg-white/20 hover:border-white/30'
+    : 'bg-navy-deep/5 border-navy/10 text-navy hover:bg-navy-deep/10 hover:border-navy/20'
 
   return (
     <nav className={`px-6 md:px-12 lg:px-16 py-4 relative z-50 ${overlay ? '' : 'bg-navy-deep'}`}>
@@ -65,13 +73,20 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Right CTA */}
-        <div className="hidden md:block">
+        {/* Right CTA + Language */}
+        <div className="hidden md:flex items-center gap-3">
+          <button
+            onClick={toggleLanguage}
+            className={`px-3 py-1.5 rounded-lg text-xs font-semibold tracking-wider border backdrop-blur-sm transition-all duration-300 ${langBtnClass}`}
+            aria-label="Change language"
+          >
+            {language === 'es' ? 'EN' : 'ES'}
+          </button>
           <Link
             to="/contacto"
             className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-300 ${overlay ? 'bg-white text-black hover:bg-[#C8A45D] hover:text-white' : 'bg-navy text-white hover:bg-[#C8A45D]'}`}
           >
-            Contactar
+            {t.nav.contactButton}
           </Link>
         </div>
 
@@ -111,8 +126,14 @@ export default function Navbar() {
             className={`px-6 py-2 rounded-lg text-sm font-medium transition-colors duration-300 text-center mt-1 ${overlay ? 'bg-white text-black hover:bg-[#C8A45D] hover:text-white' : 'bg-navy text-white hover:bg-[#C8A45D]'}`}
             onClick={() => setMobileOpen(false)}
           >
-            Contactar
+            {t.nav.contactButton}
           </Link>
+          <button
+            onClick={() => { toggleLanguage(); setMobileOpen(false) }}
+            className={`mt-2 py-2 rounded-lg text-xs font-semibold tracking-wider border backdrop-blur-sm transition-all duration-300 text-center ${langBtnClass}`}
+          >
+            {language === 'es' ? 'Switch to English' : 'Cambiar a Español'}
+          </button>
         </div>
       )}
     </nav>

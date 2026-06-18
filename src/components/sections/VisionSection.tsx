@@ -1,31 +1,21 @@
 import { ShieldCheck, TrendingUp, Gem, Lightbulb } from 'lucide-react'
 import Reveal from '../Reveal'
 import BackgroundDecor from '../BackgroundDecor'
-
-const pillars = [
-  {
-    icon: ShieldCheck,
-    title: 'Confianza',
-    text: 'Relaciones sólidas construidas sobre cumplimiento, transparencia y resultados.',
-  },
-  {
-    icon: TrendingUp,
-    title: 'Desarrollo',
-    text: 'Visión de crecimiento que conecta sectores y genera nuevas oportunidades.',
-  },
-  {
-    icon: Gem,
-    title: 'Calidad',
-    text: 'Estándares de excelencia aplicados en cada proyecto y cada división.',
-  },
-  {
-    icon: Lightbulb,
-    title: 'Innovación',
-    text: 'Adaptación continua, mejora de procesos y búsqueda de soluciones eficientes.',
-  },
-]
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 export default function VisionSection() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const v = t.vision
+
+  const pillars = [
+    { icon: ShieldCheck, title: v.pillars.trust.title, text: v.pillars.trust.text },
+    { icon: TrendingUp, title: v.pillars.development.title, text: v.pillars.development.text },
+    { icon: Gem, title: v.pillars.growth.title, text: v.pillars.growth.text },
+    { icon: Lightbulb, title: v.pillars.integration.title, text: v.pillars.integration.text },
+  ]
+
   return (
     <section
       id="nosotros"
@@ -47,19 +37,19 @@ export default function VisionSection() {
           <div className="inline-flex items-center gap-2 mb-5">
             <span className="h-1.5 w-1.5 rounded-full bg-champagne" />
             <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/70">
-              Visión empresarial
+              {v.eyebrow}
             </span>
           </div>
           <h2
             className="text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-[1.1]"
             style={{ letterSpacing: '-0.03em' }}
           >
-            Desarrollo con visión, estructura y confianza.
+            {v.title}
           </h2>
           <p className="mt-6 text-base md:text-lg text-white/80 leading-relaxed">
-            Trabajamos para construir una presencia empresarial sólida,
-            conectando sectores que impulsan proyectos, oportunidades y
-            crecimiento sostenible.
+            {language === 'es'
+              ? 'Trabajamos para construir una presencia empresarial sólida, conectando sectores que impulsan proyectos, oportunidades y crecimiento sostenible.'
+              : 'We work to build a solid business presence, connecting sectors that drive projects, opportunities and sustainable growth.'}
           </p>
         </Reveal>
 

@@ -2,21 +2,28 @@ import { Link } from 'react-router-dom'
 import { ArrowRight } from 'lucide-react'
 import AnimatedHeading from './AnimatedHeading'
 import FadeIn from './FadeIn'
-
-const divisions = [
-  { name: 'DSTD Hormigones', desc: 'Hormigón y concreto premezclado' },
-  { name: 'DSTD Industrias', desc: 'Materiales industriales' },
-  { name: 'DSTD Immobiliare', desc: 'Real estate y desarrollo' },
-  { name: 'DSTD Agregados', desc: 'Áridos y agregados' },
-]
-
-const stats = [
-  { value: '4', label: 'divisiones de negocio' },
-  { value: '100%', label: 'compromiso y calidad' },
-  { value: '24/7', label: 'atención al cliente' },
-]
+import { useLanguage } from '../context/LanguageContext'
+import { getTranslation } from '../i18n/translations'
 
 export default function Hero() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+
+  const isEn = language === 'en'
+
+  const divisions = [
+    { name: t.companies.hormigones.name, slug: 'hormigones', desc: t.companies.hormigones.description },
+    { name: t.companies.industrias.name, slug: 'industrias', desc: t.companies.industrias.description },
+    { name: t.companies.immobiliare.name, slug: 'immobiliare', desc: t.companies.immobiliare.description },
+    { name: t.companies.agregados.name, slug: 'agregados', desc: t.companies.agregados.description },
+  ]
+
+  const stats = [
+    { value: '4', label: isEn ? 'business divisions' : 'divisiones de negocio' },
+    { value: '100%', label: isEn ? 'commitment & quality' : 'compromiso y calidad' },
+    { value: '24/7', label: isEn ? 'customer support' : 'atención al cliente' },
+  ]
+
   return (
     <section
       id="inicio"
@@ -46,13 +53,13 @@ export default function Hero() {
                 <div className="liquid-glass inline-flex items-center gap-2 rounded-full px-4 py-1.5 mb-6">
                   <span className="h-1.5 w-1.5 rounded-full bg-[#C8A45D]" />
                   <span className="text-xs md:text-sm tracking-wide text-white/90">
-                    Grupo empresarial · Desarrollo · Inversión
+                    {t.hero.tag}
                   </span>
                 </div>
               </FadeIn>
 
               <AnimatedHeading
-                text={'Construyendo el futuro\ncon visión empresarial.'}
+                text={t.hero.title}
                 className="text-readable text-white text-[1.65rem] sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-normal mb-5 leading-[1.1]"
                 charDelay={30}
                 initialDelay={200}
@@ -62,9 +69,7 @@ export default function Hero() {
 
               <FadeIn delay={800} duration={1000}>
                 <p className="text-readable text-base md:text-lg text-white/85 mb-7 max-w-xl leading-relaxed">
-                  DSTD Enterprises integra construcción, hormigones, industria,
-                  immobiliare y agregados bajo una visión de desarrollo,
-                  confianza y crecimiento a largo plazo.
+                  {t.hero.subtitle}
                 </p>
               </FadeIn>
 
@@ -74,7 +79,7 @@ export default function Hero() {
                     to="/nosotros"
                     className="group inline-flex items-center gap-2 bg-white text-black px-8 py-3 rounded-lg font-medium hover:bg-[#C8A45D] hover:text-white transition-colors duration-300"
                   >
-                    Conocer el grupo
+                    {t.hero.primaryButton}
                     <ArrowRight
                       size={18}
                       className="transition-transform duration-300 group-hover:translate-x-0.5"
@@ -84,7 +89,7 @@ export default function Hero() {
                     to="/empresas"
                     className="liquid-glass border border-white/20 text-white px-8 py-3 rounded-lg font-medium hover:bg-white hover:text-black transition-colors duration-300"
                   >
-                    Explorar empresas
+                    {t.hero.secondaryButton}
                   </Link>
                 </div>
               </FadeIn>
@@ -111,7 +116,7 @@ export default function Hero() {
                 <div className="liquid-glass rounded-2xl p-4 sm:p-6 w-full">
                   <div className="flex items-center justify-between mb-4">
                     <span className="text-xs uppercase tracking-[0.2em] text-white/60">
-                      Nuestras divisiones
+                      {isEn ? 'Our divisions' : 'Nuestras divisiones'}
                     </span>
                     <span className="text-xs text-[#C8A45D]">04</span>
                   </div>
@@ -122,7 +127,7 @@ export default function Hero() {
                         className="group flex items-center justify-between py-3"
                       >
                         <Link
-                          to={`/empresas/${d.name.toLowerCase().replace('dstd ', '')}`}
+                          to={`/empresas/${d.slug}`}
                           className="flex-1"
                         >
                           <div className="text-base md:text-lg font-medium text-white">
