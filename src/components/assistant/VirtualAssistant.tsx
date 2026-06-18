@@ -2,7 +2,6 @@ import { useState } from 'react'
 import AssistantButton from './AssistantButton'
 import AssistantWindow from './AssistantWindow'
 import {
-  getResponse,
   getQuickQuestionResponse,
   initialMessage,
   type ChatMessage,
@@ -14,21 +13,6 @@ export default function VirtualAssistant() {
 
   const handleToggle = () => {
     setOpen((prev) => !prev)
-  }
-
-  const addUserMessage = (text: string) => {
-    const userMsg: ChatMessage = {
-      id: Date.now().toString(),
-      sender: 'user',
-      text,
-    }
-    setMessages((prev) => [...prev, userMsg])
-
-    // Small delay for "typing" effect
-    setTimeout(() => {
-      const response = getResponse(text)
-      setMessages((prev) => [...prev, response])
-    }, 400)
   }
 
   const handleQuickQuestion = (question: string) => {
@@ -58,7 +42,6 @@ export default function VirtualAssistant() {
       >
         <AssistantWindow
           messages={messages}
-          onSend={addUserMessage}
           onQuickQuestion={handleQuickQuestion}
         />
       </div>
