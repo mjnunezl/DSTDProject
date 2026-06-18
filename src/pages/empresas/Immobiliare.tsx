@@ -7,53 +7,59 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 import SEO from '../../components/SEO'
 import { seoMeta } from '../../data/seo'
 import { whatsappMessages } from '../../utils/whatsapp'
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 const accent = '#C7372F'
 const heroImg = '/media/immobiliarehorizontal.jpeg'
-
-const services = [
-  { num: '01', icon: Home, title: 'Venta de propiedades', text: 'Cartera de inmuebles seleccionados en ubicaciones estratégicas del país.' },
-  { num: '02', icon: Building, title: 'Proyectos inmobiliarios', text: 'Planeación y ejecución de desarrollos residenciales y comerciales con visión.' },
-  { num: '03', icon: TrendingUp, title: 'Inversiones', text: 'Oportunidades de inversión inmobiliaria con retorno sostenible a largo plazo.' },
-  { num: '04', icon: Banknote, title: 'Préstamos inmobiliarios', text: 'Soluciones de financiamiento adaptadas al perfil y necesidad de cada cliente.' },
-  { num: '05', icon: KeyRound, title: 'Asesoría para compradores', text: 'Acompañamiento profesional en la búsqueda y adquisición de propiedades.' },
-]
-
 const ctaImg = 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop'
 
-const stats = [
-  { value: '+15', label: 'Años de experiencia' },
-  { value: '+200', label: 'Propiedades gestionadas' },
-  { value: '+500', label: 'Clientes satisfechos' },
-  { value: 'RD', label: 'Cobertura nacional' },
-]
-
-const featured = {
-  name: 'Proyecto residencial DSTD',
-  location: 'Santo Domingo, RD',
-  description: 'Complejo de apartamentos modernos con amenidades premium, áreas verdes y diseño contemporáneo en una de las zonas de mayor plusvalía del país.',
-  priceLabel: 'Desde $150,000',
-  specs: [
-    { icon: BedDouble, label: '3 habitaciones' },
-    { icon: Bath, label: '2 baños' },
-    { icon: Maximize, label: '120 m²' },
-  ],
-  img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1974&auto=format&fit=crop',
-}
-
-const properties = [
-  { name: 'Solar para inversión', type: 'Terreno', location: 'Punta Cana, RD', priceLabel: 'Consultar', img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format&fit=crop' },
-  { name: 'Apartamento en desarrollo', type: 'Residencial', location: 'Santiago, RD', priceLabel: 'Desde $120,000', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop' },
-  { name: 'Propiedad comercial', type: 'Comercial', location: 'La Vega, RD', priceLabel: 'Consultar', img: '/media/immobiliarevertical.jpeg' },
-]
-
-const testimonial = {
-  quote: 'El acompañamiento de DSTD Immobiliare hizo que invertir fuera simple y seguro. Profesionalismo y transparencia de principio a fin.',
-  author: 'Carlos Méndez',
-  role: 'Inversionista',
-}
-
 export default function Immobiliare() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const im = t.immobiliare
+  const isEn = language === 'en'
+
+  const services = [
+    { num: '01', icon: Home, title: im.services.venta, text: im.services.ventaDesc },
+    { num: '02', icon: Building, title: im.services.proyectos, text: im.services.proyectosDesc },
+    { num: '03', icon: TrendingUp, title: im.services.inversiones, text: im.services.inversionesDesc },
+    { num: '04', icon: Banknote, title: im.services.prestamos, text: im.services.prestamosDesc },
+    { num: '05', icon: KeyRound, title: im.services.asesoria, text: im.services.asesoriaDesc },
+  ]
+
+  const stats = [
+    { value: '+15', label: isEn ? 'Years of experience' : 'Años de experiencia' },
+    { value: '+200', label: isEn ? 'Properties managed' : 'Propiedades gestionadas' },
+    { value: '+500', label: isEn ? 'Satisfied clients' : 'Clientes satisfechos' },
+    { value: 'RD', label: isEn ? 'National coverage' : 'Cobertura nacional' },
+  ]
+
+  const featured = {
+    name: isEn ? 'DSTD residential project' : 'Proyecto residencial DSTD',
+    location: 'Santo Domingo, RD',
+    description: isEn ? 'Modern apartment complex with premium amenities, green areas and contemporary design in one of the highest appreciation areas in the country.' : 'Complejo de apartamentos modernos con amenidades premium, áreas verdes y diseño contemporáneo en una de las zonas de mayor plusvalía del país.',
+    priceLabel: isEn ? 'From $150,000' : 'Desde $150,000',
+    specs: [
+      { icon: BedDouble, label: isEn ? '3 bedrooms' : '3 habitaciones' },
+      { icon: Bath, label: isEn ? '2 bathrooms' : '2 baños' },
+      { icon: Maximize, label: '120 m²' },
+    ],
+    img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1974&auto=format&fit=crop',
+  }
+
+  const properties = [
+    { name: isEn ? 'Investment lot' : 'Solar para inversión', type: isEn ? 'Land' : 'Terreno', location: 'Punta Cana, RD', priceLabel: isEn ? 'Inquire' : 'Consultar', img: 'https://images.unsplash.com/photo-1500382017468-9049fed747ef?q=80&w=2070&auto=format&fit=crop' },
+    { name: isEn ? 'Apartment in development' : 'Apartamento en desarrollo', type: isEn ? 'Residential' : 'Residencial', location: 'Santiago, RD', priceLabel: isEn ? 'From $120,000' : 'Desde $120,000', img: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=2070&auto=format&fit=crop' },
+    { name: isEn ? 'Commercial property' : 'Propiedad comercial', type: isEn ? 'Commercial' : 'Comercial', location: 'La Vega, RD', priceLabel: isEn ? 'Inquire' : 'Consultar', img: '/media/immobiliarevertical.jpeg' },
+  ]
+
+  const testimonial = {
+    quote: isEn ? 'DSTD Immobiliare\'s support made investing simple and secure. Professionalism and transparency from start to finish.' : 'El acompañamiento de DSTD Immobiliare hizo que invertir fuera simple y seguro. Profesionalismo y transparencia de principio a fin.',
+    author: 'Carlos Méndez',
+    role: isEn ? 'Investor' : 'Inversionista',
+  }
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/empresas/immobiliare']} pathname="/empresas/immobiliare" />
@@ -67,18 +73,18 @@ export default function Immobiliare() {
           <Reveal>
             <div className="inline-flex items-center gap-2 mb-6 justify-center">
               <span className="h-px w-8 bg-white/40" />
-              <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80">División Immobiliare</span>
+              <span className="text-xs md:text-sm uppercase tracking-[0.3em] text-white/80">{isEn ? 'Real Estate Division' : 'División Immobiliare'}</span>
               <span className="h-px w-8 bg-white/40" />
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-light text-white leading-[1.05]" style={{ letterSpacing: '-0.02em' }}>
-              Espacios que generan <span className="italic" style={{ color: '#ec6b62' }}>valor</span> a largo plazo.
+              {im.heroTitle}
             </h1>
             <p className="mt-7 mx-auto max-w-2xl text-base md:text-lg text-white/80 leading-relaxed">
-              Conectamos personas con oportunidades inmobiliarias sólidas: propiedades, proyectos, inversión y financiamiento con visión de desarrollo.
+              {im.heroDesc}
             </p>
             <div className="mt-9 flex justify-center">
               <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg px-8 py-3 font-medium text-white transition-colors duration-300" style={{ backgroundColor: accent }}>
-                Agendar asesoría
+                {isEn ? 'Schedule advisory' : 'Agendar asesoría'}
                 <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </div>
@@ -92,14 +98,14 @@ export default function Immobiliare() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <div className="grid lg:grid-cols-12 gap-8 lg:gap-16 items-end">
             <Reveal className="lg:col-span-7">
-              <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Quiénes somos</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'About us' : 'Quiénes somos'}</span>
               <h2 className="mt-5 text-3xl md:text-5xl font-light text-navy leading-[1.08]" style={{ letterSpacing: '-0.02em' }}>
-                Más que propiedades, <span className="italic" style={{ color: accent }}>construimos patrimonio</span>.
+                {isEn ? 'More than properties, we build ' : 'Más que propiedades, '}{isEn ? <span className="italic" style={{ color: accent }}>wealth</span> : <span className="italic" style={{ color: accent }}>construimos patrimonio</span>}{isEn ? '.' : '.'}
               </h2>
             </Reveal>
             <Reveal delay={120} className="lg:col-span-5">
               <p className="text-base md:text-lg text-graphite/65 leading-relaxed">
-                Combinamos visión de desarrollo, conocimiento del mercado y un acompañamiento cercano para que cada decisión inmobiliaria sea sólida, rentable y duradera.
+                {isEn ? 'We combine development vision, market knowledge and close support so that every real estate decision is solid, profitable and lasting.' : 'Combinamos visión de desarrollo, conocimiento del mercado y un acompañamiento cercano para que cada decisión inmobiliaria sea sólida, rentable y duradera.'}
               </p>
             </Reveal>
           </div>
@@ -125,9 +131,9 @@ export default function Immobiliare() {
               <div>
                 <div className="inline-flex items-center gap-2 mb-3">
                   <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                  <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Propiedad destacada</span>
+                  <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{im.featured}</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-light text-navy" style={{ letterSpacing: '-0.02em' }}>La oportunidad del momento.</h2>
+                <h2 className="text-3xl md:text-4xl font-light text-navy" style={{ letterSpacing: '-0.02em' }}>{im.featuredTitle}</h2>
               </div>
               <span className="hidden md:block text-6xl font-extralight text-navy/10 leading-none">01</span>
             </div>
@@ -137,7 +143,7 @@ export default function Immobiliare() {
               <div className="group relative h-80 lg:h-auto overflow-hidden">
                 <img src={featured.img} alt={featured.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[1200ms] group-hover:scale-105" />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy-deep/30 to-transparent" />
-                <span className="absolute left-5 top-5 rounded-full px-4 py-1.5 text-xs font-semibold text-white" style={{ backgroundColor: accent }}>Destacado</span>
+                <span className="absolute left-5 top-5 rounded-full px-4 py-1.5 text-xs font-semibold text-white" style={{ backgroundColor: accent }}>{isEn ? 'Featured' : 'Destacado'}</span>
               </div>
               <div className="p-8 md:p-12 flex flex-col justify-center">
                 <div className="flex items-center gap-2 text-sm text-graphite/60">
@@ -156,11 +162,11 @@ export default function Immobiliare() {
                 </div>
                 <div className="mt-8 flex items-center justify-between border-t border-navy/10 pt-6">
                   <div>
-                    <div className="text-xs uppercase tracking-wider text-graphite/50">Precio</div>
+                    <div className="text-xs uppercase tracking-wider text-graphite/50">{isEn ? 'Price' : 'Precio'}</div>
                     <div className="text-2xl font-semibold" style={{ color: accent }}>{featured.priceLabel}</div>
                   </div>
                   <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg px-6 py-3 font-medium text-white transition-colors" style={{ backgroundColor: accent }}>
-                    Ver detalles
+                    {isEn ? 'View details' : 'Ver detalles'}
                     <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
                 </div>
@@ -179,12 +185,12 @@ export default function Immobiliare() {
               <div className="max-w-2xl">
                 <div className="inline-flex items-center gap-2 mb-5">
                   <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                  <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Más oportunidades</span>
+                  <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'More opportunities' : 'Más oportunidades'}</span>
                 </div>
-                <h2 className="text-3xl md:text-4xl font-light text-navy leading-[1.1]" style={{ letterSpacing: '-0.02em' }}>Explora nuestro portafolio.</h2>
+                <h2 className="text-3xl md:text-4xl font-light text-navy leading-[1.1]" style={{ letterSpacing: '-0.02em' }}>{im.propertiesTitle}</h2>
               </div>
               <Link to="/contacto" className="group inline-flex items-center gap-2 text-sm font-medium text-navy">
-                Ver portafolio completo
+                {isEn ? 'View full portfolio' : 'Ver portafolio completo'}
                 <ArrowRight size={16} className="transition-transform duration-300 group-hover:translate-x-1" style={{ color: accent }} />
               </Link>
             </div>
@@ -205,7 +211,7 @@ export default function Immobiliare() {
                     <div className="mt-4 flex items-center justify-between border-t border-white/15 pt-4">
                       <span className="text-sm font-semibold text-white">{p.priceLabel}</span>
                       <span className="inline-flex items-center gap-1 text-sm text-white/80">
-                        Detalles
+                        {isEn ? 'Details' : 'Detalles'}
                         <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
                       </span>
                     </div>
@@ -223,12 +229,12 @@ export default function Immobiliare() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
             <Reveal className="lg:col-span-4">
-              <span className="text-xs uppercase tracking-[0.2em] text-white/50">Servicios</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-white/50">{isEn ? 'Services' : 'Servicios'}</span>
               <h2 className="mt-4 text-3xl md:text-4xl font-light text-white leading-[1.1]" style={{ letterSpacing: '-0.02em' }}>
-                Soluciones inmobiliarias integrales.
+                {isEn ? 'Comprehensive real estate solutions.' : 'Soluciones inmobiliarias integrales.'}
               </h2>
               <p className="mt-5 text-base text-white/70 leading-relaxed">
-                Acompañamiento experto en cada etapa, desde la búsqueda hasta la formalización.
+                {isEn ? 'Expert support at every stage, from search to formalization.' : 'Acompañamiento experto en cada etapa, desde la búsqueda hasta la formalización.'}
               </p>
             </Reveal>
             <div className="lg:col-span-8 border-t border-white/10">
@@ -281,15 +287,15 @@ export default function Immobiliare() {
             <Reveal>
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Asesoría</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Advisory' : 'Asesoría'}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-light text-navy leading-[1.1]" style={{ letterSpacing: '-0.02em' }}>Agendar asesoría.</h2>
-              <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">Cuéntanos qué buscas y un asesor te contactará con las mejores opciones.</p>
+              <h2 className="text-3xl md:text-4xl font-light text-navy leading-[1.1]" style={{ letterSpacing: '-0.02em' }}>{im.contactTitle}</h2>
+              <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">{isEn ? 'Tell us what you are looking for and an advisor will contact you with the best options.' : 'Cuéntanos qué buscas y un asesor te contactará con las mejores opciones.'}</p>
               <div className="mt-8 space-y-4">
                 {[
-                  { icon: ShieldCheck, t: 'Asesoría transparente y sin compromiso' },
-                  { icon: TrendingUp, t: 'Oportunidades con potencial de plusvalía' },
-                  { icon: KeyRound, t: 'Acompañamiento hasta la entrega de llaves' },
+                  { icon: ShieldCheck, t: isEn ? 'Transparent advice with no commitment' : 'Asesoría transparente y sin compromiso' },
+                  { icon: TrendingUp, t: isEn ? 'Opportunities with appreciation potential' : 'Oportunidades con potencial de plusvalía' },
+                  { icon: KeyRound, t: isEn ? 'Support until key delivery' : 'Acompañamiento hasta la entrega de llaves' },
                 ].map((b) => (
                   <div key={b.t} className="flex items-center gap-3">
                     <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full" style={{ backgroundColor: `${accent}18` }}>
@@ -300,35 +306,35 @@ export default function Immobiliare() {
                 ))}
               </div>
               <div className="mt-8">
-                <WhatsAppButton variant="inline" message={whatsappMessages.immobiliare} label="Contactar por WhatsApp" />
+                <WhatsAppButton variant="inline" message={whatsappMessages.immobiliare} label={isEn ? 'Contact via WhatsApp' : 'Contactar por WhatsApp'} />
               </div>
             </Reveal>
             <Reveal delay={150}>
               <div className="rounded-3xl glass-card p-8 shadow-premium">
                 <ContactForm
                   fields={[
-                    { name: 'name', label: 'Nombre', required: true, placeholder: 'Tu nombre' },
-                    { name: 'phone', label: 'Teléfono', required: true, placeholder: '829-367-2491' },
-                    { name: 'interest', label: 'Interés', type: 'select', options: [
-                      { value: '', label: 'Selecciona' },
-                      { value: 'comprar', label: 'Comprar' },
-                      { value: 'vender', label: 'Vender' },
-                      { value: 'invertir', label: 'Invertir' },
-                      { value: 'prestamo', label: 'Préstamo' },
+                    { name: 'name', label: isEn ? 'Name' : 'Nombre', required: true, placeholder: isEn ? 'Your name' : 'Tu nombre' },
+                    { name: 'phone', label: isEn ? 'Phone' : 'Teléfono', required: true, placeholder: '829-367-2491' },
+                    { name: 'interest', label: isEn ? 'Interest' : 'Interés', type: 'select', options: [
+                      { value: '', label: isEn ? 'Select' : 'Selecciona' },
+                      { value: 'comprar', label: isEn ? 'Buy' : 'Comprar' },
+                      { value: 'vender', label: isEn ? 'Sell' : 'Vender' },
+                      { value: 'invertir', label: isEn ? 'Invest' : 'Invertir' },
+                      { value: 'prestamo', label: isEn ? 'Loan' : 'Préstamo' },
                     ]},
-                    { name: 'propertyType', label: 'Tipo de propiedad', type: 'select', options: [
-                      { value: '', label: 'Selecciona' },
-                      { value: 'apartamento', label: 'Apartamento' },
-                      { value: 'casa', label: 'Casa' },
-                      { value: 'terreno', label: 'Terreno' },
-                      { value: 'comercial', label: 'Comercial' },
-                      { value: 'otro', label: 'Otro' },
+                    { name: 'propertyType', label: isEn ? 'Property type' : 'Tipo de propiedad', type: 'select', options: [
+                      { value: '', label: isEn ? 'Select' : 'Selecciona' },
+                      { value: 'apartamento', label: isEn ? 'Apartment' : 'Apartamento' },
+                      { value: 'casa', label: isEn ? 'House' : 'Casa' },
+                      { value: 'terreno', label: isEn ? 'Land' : 'Terreno' },
+                      { value: 'comercial', label: isEn ? 'Commercial' : 'Comercial' },
+                      { value: 'otro', label: isEn ? 'Other' : 'Otro' },
                     ]},
-                    { name: 'budget', label: 'Presupuesto aproximado', placeholder: 'Ej. $150,000' },
-                    { name: 'location', label: 'Ubicación deseada', placeholder: 'Ciudad o zona' },
-                    { name: 'message', label: 'Mensaje adicional', type: 'textarea', placeholder: 'Cuéntanos más sobre lo que buscas...' },
+                    { name: 'budget', label: isEn ? 'Approximate budget' : 'Presupuesto aproximado', placeholder: isEn ? 'e.g. $150,000' : 'Ej. $150,000' },
+                    { name: 'location', label: isEn ? 'Desired location' : 'Ubicación deseada', placeholder: isEn ? 'City or area' : 'Ciudad o zona' },
+                    { name: 'message', label: isEn ? 'Additional message' : 'Mensaje adicional', type: 'textarea', placeholder: isEn ? 'Tell us more about what you are looking for...' : 'Cuéntanos más sobre lo que buscas...' },
                   ]}
-                  submitLabel="Solicitar asesoría"
+                  submitLabel={isEn ? 'Request advisory' : 'Solicitar asesoría'}
                   accentColor={accent}
                 />
               </div>
@@ -345,15 +351,15 @@ export default function Immobiliare() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16 py-28 md:py-36 text-center">
           <Reveal>
             <h2 className="mx-auto max-w-3xl text-4xl md:text-5xl font-light text-white leading-[1.1]" style={{ letterSpacing: '-0.02em' }}>
-              Encuentra tu próxima <span className="italic" style={{ color: '#ec6b62' }}>inversión</span>.
+              {isEn ? 'Find your next ' : 'Encuentra tu próxima '}{isEn ? <span className="italic" style={{ color: '#ec6b62' }}>investment</span> : <span className="italic" style={{ color: '#ec6b62' }}>inversión</span>}{isEn ? '.' : '.'}
             </h2>
-            <p className="mx-auto mt-6 max-w-2xl text-base md:text-lg text-white/80 leading-relaxed">Explora nuestras oportunidades inmobiliarias y recibe asesoría personalizada.</p>
+            <p className="mx-auto mt-6 max-w-2xl text-base md:text-lg text-white/80 leading-relaxed">{isEn ? 'Explore our real estate opportunities and receive personalized advice.' : 'Explora nuestras oportunidades inmobiliarias y recibe asesoría personalizada.'}</p>
             <div className="mt-9 flex flex-wrap justify-center gap-4">
               <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 font-medium text-navy transition-colors duration-300 hover:bg-[#C7372F] hover:text-white">
-                Contactar
+                {isEn ? 'Contact' : 'Contactar'}
                 <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
-              <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">Ver otras divisiones</Link>
+              <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">{isEn ? 'View other divisions' : 'Ver otras divisiones'}</Link>
             </div>
           </Reveal>
         </div>

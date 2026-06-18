@@ -5,29 +5,36 @@ import BackgroundDecor from '../components/BackgroundDecor'
 import PageHero from '../components/PageHero'
 import SEO from '../components/SEO'
 import { seoMeta } from '../data/seo'
-
-const pillars = [
-  { icon: ShieldCheck, title: 'Confianza', text: 'Relaciones sólidas construidas sobre cumplimiento, transparencia y resultados.' },
-  { icon: TrendingUp, title: 'Desarrollo', text: 'Visión de crecimiento que conecta sectores y genera nuevas oportunidades.' },
-  { icon: Gem, title: 'Calidad', text: 'Estándares de excelencia aplicados en cada proyecto y cada división.' },
-  { icon: Lightbulb, title: 'Innovación', text: 'Adaptación continua, mejora de procesos y búsqueda de soluciones eficientes.' },
-]
-
-const sectors = [
-  { icon: Building2, label: 'Construcción' },
-  { icon: Factory, label: 'Industria' },
-  { icon: Globe, label: 'Bienes raíces' },
-  { icon: Mountain, label: 'Agregados' },
-]
+import { useLanguage } from '../context/LanguageContext'
+import { getTranslation } from '../i18n/translations'
 
 export default function Nosotros() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const a = t.about
+  const isEn = language === 'en'
+
+  const pillars = [
+    { icon: ShieldCheck, title: a.pillars.trust.title, text: a.pillars.trust.text },
+    { icon: TrendingUp, title: a.pillars.development.title, text: a.pillars.development.text },
+    { icon: Gem, title: a.pillars.quality.title, text: a.pillars.quality.text },
+    { icon: Lightbulb, title: a.pillars.innovation.title, text: a.pillars.innovation.text },
+  ]
+
+  const sectors = [
+    { icon: Building2, label: a.sectorLabels[0] },
+    { icon: Factory, label: a.sectorLabels[1] },
+    { icon: Globe, label: a.sectorLabels[2] },
+    { icon: Mountain, label: a.sectorLabels[3] },
+  ]
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/nosotros']} pathname="/nosotros" />
       <PageHero
-        eyebrow="Sobre nosotros"
-        title="Desarrollo con visión, estructura y confianza."
-        description="DSTD Enterprises nace como un ecosistema empresarial enfocado en desarrollar soluciones, proyectos y oportunidades en sectores clave para el crecimiento."
+        eyebrow={a.eyebrow}
+        title={a.title}
+        description={a.description}
       />
 
       {/* Quiénes somos */}
@@ -37,19 +44,19 @@ export default function Nosotros() {
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
             <Reveal>
               <SectionHeading
-                eyebrow="Quiénes somos"
+                eyebrow={a.whoWeAre}
                 tone="light"
-                title="Una visión corporativa que conecta sectores estratégicos."
-                description="DSTD Enterprises integra construcción, hormigones, industria, immobiliare y agregados bajo una visión de desarrollo, confianza y crecimiento a largo plazo."
+                title={a.whoTitle}
+                description={a.whoDesc}
               />
             </Reveal>
             <Reveal delay={150}>
               <div className="grid grid-cols-2 gap-4 md:gap-5">
                 {[
-                  { label: '4 divisiones de negocio', value: 'Estructura integrada' },
-                  { label: 'Enfoque en desarrollo', value: 'Visión a largo plazo' },
-                  { label: 'Soluciones para proyectos', value: 'De principio a fin' },
-                  { label: 'Presencia corporativa', value: 'Integral y sólida' },
+                  { label: isEn ? '4 business divisions' : '4 divisiones de negocio', value: isEn ? 'Integrated structure' : 'Estructura integrada' },
+                  { label: isEn ? 'Development focus' : 'Enfoque en desarrollo', value: isEn ? 'Long-term vision' : 'Visión a largo plazo' },
+                  { label: isEn ? 'Solutions for projects' : 'Soluciones para proyectos', value: isEn ? 'From start to finish' : 'De principio a fin' },
+                  { label: isEn ? 'Corporate presence' : 'Presencia corporativa', value: isEn ? 'Comprehensive & solid' : 'Integral y sólida' },
                 ].map((d) => (
                   <div key={d.label} className="group relative overflow-hidden rounded-2xl glass-card p-6 md:p-7 shadow-premium transition-all duration-500 hover:-translate-y-1">
                     <div className="absolute left-0 top-0 h-1 w-full bg-gradient-to-r from-champagne/80 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
@@ -81,11 +88,11 @@ export default function Nosotros() {
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full bg-champagne" />
                 <span className="text-xs md:text-sm uppercase tracking-[0.2em] text-white/70">
-                  Filosofía empresarial
+                  {a.philosophy}
                 </span>
               </div>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Visión, misión y valores.
+                {a.philTitle}
               </h2>
             </div>
           </Reveal>
@@ -118,9 +125,9 @@ export default function Nosotros() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <Reveal>
             <SectionHeading
-              eyebrow="Sectores"
+              eyebrow={a.sectors}
               tone="light"
-              title="Áreas donde opera DSTD Enterprises."
+              title={a.sectorsTitle}
             />
           </Reveal>
 

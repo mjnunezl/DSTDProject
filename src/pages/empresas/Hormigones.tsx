@@ -7,40 +7,47 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 import SEO from '../../components/SEO'
 import { seoMeta } from '../../data/seo'
 import { whatsappMessages } from '../../utils/whatsapp'
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 const accent = '#E8772E'
 const heroImg = 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?q=80&w=2071&auto=format&fit=crop'
 
-const stats = [
-  { value: '4000+', label: 'PSI de resistencia' },
-  { value: '24/7', label: 'Producción continua' },
-  { value: '100%', label: 'Control de calidad' },
-  { value: '15+', label: 'Tipos de mezcla' },
-]
-
-const services = [
-  { icon: HardHat, title: 'Hormigón premezclado', text: 'Concreto de alta resistencia preparado bajo estrictos estándares de calidad para todo tipo de obra.', feature: true },
-  { icon: Truck, title: 'Vaciado para obras', text: 'Servicio completo de transporte y vaciado con camiones hormigoneros equipados.' },
-  { icon: ShieldCheck, title: 'Hormigón para zapatas', text: 'Mezclas específicas con resistencia y fluidez optimizada para cimentaciones.' },
-  { icon: CheckCircle, title: 'Hormigón para columnas', text: 'Concreto con alta cohesionabilidad y resistencia para elementos verticales.' },
-  { icon: ClipboardList, title: 'Hormigón para losas', text: 'Mezclas de fácil manejo y terminado para losas, entrepisos y techos.' },
-  { icon: CalendarDays, title: 'Programación de entregas', text: 'Coordinación precisa de horarios para mantener la continuidad de la obra.' },
-]
-
-const processSteps = [
-  { step: '01', title: 'Cotización', text: 'Recibimos los requerimientos de tu proyecto y elaboramos una propuesta técnica y comercial.' },
-  { step: '02', title: 'Programación', text: 'Coordinamos fechas, horarios y logística de entrega según la agenda de tu obra.' },
-  { step: '03', title: 'Producción', text: 'Preparamos la mezcla en planta con control de calidad en cada batch.' },
-  { step: '04', title: 'Entrega y vaciado', text: 'Transportamos y vaciamos el concreto puntualmente en el sitio acordado.' },
-]
-
-const projectTypes = [
-  { name: 'Edificios residenciales', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1974&auto=format&fit=crop' },
-  { name: 'Infraestructura vial', img: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=2025&auto=format&fit=crop' },
-  { name: 'Obras industriales', img: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=2070&auto=format&fit=crop' },
-]
-
 export default function Hormigones() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const h = t.hormigones
+  const isEn = language === 'en'
+
+  const stats = [
+    { value: '4000+', label: h.stats.psi },
+    { value: '24/7', label: h.stats.production },
+    { value: '100%', label: h.stats.quality },
+    { value: '15+', label: h.stats.types },
+  ]
+
+  const services = [
+    { icon: HardHat, title: h.services.premezclado, text: h.services.premezcladoDesc, feature: true },
+    { icon: Truck, title: h.services.vaciado, text: h.services.vaciadoDesc },
+    { icon: ShieldCheck, title: h.services.zapatas, text: h.services.zapatasDesc },
+    { icon: CheckCircle, title: h.services.columnas, text: h.services.columnasDesc },
+    { icon: ClipboardList, title: h.services.losas, text: h.services.losasDesc },
+    { icon: CalendarDays, title: h.services.entregas, text: h.services.entregasDesc },
+  ]
+
+  const processSteps = [
+    { step: '01', title: isEn ? 'Quote' : 'Cotización', text: isEn ? 'We receive your project requirements and prepare a technical and commercial proposal.' : 'Recibimos los requerimientos de tu proyecto y elaboramos una propuesta técnica y comercial.' },
+    { step: '02', title: isEn ? 'Scheduling' : 'Programación', text: isEn ? 'We coordinate dates, times and delivery logistics according to your work schedule.' : 'Coordinamos fechas, horarios y logística de entrega según la agenda de tu obra.' },
+    { step: '03', title: isEn ? 'Production' : 'Producción', text: isEn ? 'We prepare the mix in plant with quality control in each batch.' : 'Preparamos la mezcla en planta con control de calidad en cada batch.' },
+    { step: '04', title: isEn ? 'Delivery & pouring' : 'Entrega y vaciado', text: isEn ? 'We transport and pour the concrete punctually at the agreed site.' : 'Transportamos y vaciamos el concreto puntualmente en el sitio acordado.' },
+  ]
+
+  const projectTypes = [
+    { name: isEn ? 'Residential buildings' : 'Edificios residenciales', img: 'https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?q=80&w=1974&auto=format&fit=crop' },
+    { name: isEn ? 'Road infrastructure' : 'Infraestructura vial', img: 'https://images.unsplash.com/photo-1474487548417-781cb71495f3?q=80&w=2025&auto=format&fit=crop' },
+    { name: isEn ? 'Industrial works' : 'Obras industriales', img: 'https://images.unsplash.com/photo-1565008447742-97f6f38c985c?q=80&w=2070&auto=format&fit=crop' },
+  ]
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/empresas/hormigones']} pathname="/empresas/hormigones" />
@@ -54,13 +61,13 @@ export default function Hormigones() {
           <Reveal>
             <div className="inline-flex items-center gap-2 mb-5">
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-              <span className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/80">División Hormigones</span>
+              <span className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/80">{isEn ? 'Concrete Division' : 'División Hormigones'}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-normal text-white leading-[1.05] max-w-4xl" style={{ letterSpacing: '-0.02em' }}>
-              Hormigón que sostiene <span style={{ color: accent }}>grandes proyectos</span>.
+              {h.heroTitle}
             </h1>
             <p className="mt-6 text-base md:text-lg text-white/80 leading-relaxed max-w-2xl">
-              Concreto premezclado de alta resistencia para obras que exigen calidad, precisión y puntualidad en cada entrega.
+              {h.heroDesc}
             </p>
           </Reveal>
         </div>
@@ -98,15 +105,15 @@ export default function Hormigones() {
             </Reveal>
             <Reveal delay={150} className="lg:col-span-6">
               <div className="border-l-2 pl-6 md:pl-8" style={{ borderColor: `${accent}55` }}>
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Sobre la división</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'About the division' : 'Sobre la división'}</span>
                 <h2 className="mt-4 text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                  Resistencia diseñada para durar.
+                  {isEn ? 'Strength designed to last.' : 'Resistencia diseñada para durar.'}
                 </h2>
                 <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">
-                  Desde edificaciones residenciales hasta infraestructura de gran escala, DSTD Hormigones entrega concreto premezclado que cumple con los más altos parámetros técnicos del sector construcción.
+                  {isEn ? 'From residential buildings to large-scale infrastructure, DSTD Concrete delivers ready-mix concrete that meets the highest technical parameters of the construction sector.' : 'Desde edificaciones residenciales hasta infraestructura de gran escala, DSTD Hormigones entrega concreto premezclado que cumple con los más altos parámetros técnicos del sector construcción.'}
                 </p>
                 <div className="mt-8 grid grid-cols-2 gap-4">
-                  {[{ icon: Gauge, t: 'Mezclas calibradas' }, { icon: Layers, t: 'Para cada elemento' }].map((f) => (
+                  {[{ icon: Gauge, t: isEn ? 'Calibrated mixes' : 'Mezclas calibradas' }, { icon: Layers, t: isEn ? 'For every element' : 'Para cada elemento' }].map((f) => (
                     <div key={f.t} className="flex items-center gap-3">
                       <span className="flex h-10 w-10 items-center justify-center rounded-xl" style={{ backgroundColor: `${accent}18` }}>
                         <f.icon size={20} style={{ color: accent }} strokeWidth={1.5} />
@@ -129,10 +136,10 @@ export default function Hormigones() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Servicios</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Services' : 'Servicios'}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Soluciones de concreto a la medida.
+                {isEn ? 'Tailored concrete solutions.' : 'Soluciones de concreto a la medida.'}
               </h2>
             </div>
           </Reveal>
@@ -165,10 +172,10 @@ export default function Hormigones() {
           <Reveal>
             <div className="max-w-3xl">
               <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Del pedido al vaciado.
+                {isEn ? 'From order to pouring.' : 'Del pedido al vaciado.'}
               </h2>
               <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed">
-                Un flujo claro para garantizar calidad y puntualidad en cada entrega.
+                {isEn ? 'A clear flow to guarantee quality and punctuality in every delivery.' : 'Un flujo claro para garantizar calidad y puntualidad en cada entrega.'}
               </p>
             </div>
           </Reveal>
@@ -199,10 +206,10 @@ export default function Hormigones() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Proyectos atendidos</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Projects served' : 'Proyectos atendidos'}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Tipos de obra que cubrimos.
+                {isEn ? 'Types of works we cover.' : 'Tipos de obra que cubrimos.'}
               </h2>
             </div>
           </Reveal>
@@ -229,38 +236,38 @@ export default function Hormigones() {
             <Reveal>
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Cotización</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Quote' : 'Cotización'}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Cotizar hormigón.
+                {h.contactTitle}
               </h2>
               <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">
-                Completa el formulario y recibe una propuesta técnica y comercial adaptada a tu obra.
+                {isEn ? 'Fill out the form and receive a technical and commercial proposal tailored to your project.' : 'Completa el formulario y recibe una propuesta técnica y comercial adaptada a tu obra.'}
               </p>
               <div className="mt-8">
-                <WhatsAppButton variant="inline" message={whatsappMessages.hormigones} label="Cotizar por WhatsApp" />
+                <WhatsAppButton variant="inline" message={whatsappMessages.hormigones} label={isEn ? 'Quote via WhatsApp' : 'Cotizar por WhatsApp'} />
               </div>
             </Reveal>
             <Reveal delay={150}>
               <div className="rounded-3xl glass-card p-8 shadow-premium">
                 <ContactForm
                   fields={[
-                    { name: 'name', label: 'Nombre', required: true, placeholder: 'Tu nombre' },
-                    { name: 'phone', label: 'Teléfono', required: true, placeholder: '829-367-2491' },
-                    { name: 'location', label: 'Ubicación de la obra', required: true, placeholder: 'Dirección o ciudad' },
-                    { name: 'projectType', label: 'Tipo de proyecto', type: 'select', options: [
-                      { value: '', label: 'Selecciona' },
-                      { value: 'residencial', label: 'Residencial' },
-                      { value: 'comercial', label: 'Comercial' },
-                      { value: 'industrial', label: 'Industrial' },
-                      { value: 'infraestructura', label: 'Infraestructura' },
-                      { value: 'otro', label: 'Otro' },
+                    { name: 'name', label: isEn ? 'Name' : 'Nombre', required: true, placeholder: isEn ? 'Your name' : 'Tu nombre' },
+                    { name: 'phone', label: isEn ? 'Phone' : 'Teléfono', required: true, placeholder: '829-367-2491' },
+                    { name: 'location', label: isEn ? 'Work location' : 'Ubicación de la obra', required: true, placeholder: isEn ? 'Address or city' : 'Dirección o ciudad' },
+                    { name: 'projectType', label: isEn ? 'Project type' : 'Tipo de proyecto', type: 'select', options: [
+                      { value: '', label: isEn ? 'Select' : 'Selecciona' },
+                      { value: 'residencial', label: isEn ? 'Residential' : 'Residencial' },
+                      { value: 'comercial', label: isEn ? 'Commercial' : 'Comercial' },
+                      { value: 'industrial', label: isEn ? 'Industrial' : 'Industrial' },
+                      { value: 'infraestructura', label: isEn ? 'Infrastructure' : 'Infraestructura' },
+                      { value: 'otro', label: isEn ? 'Other' : 'Otro' },
                     ]},
-                    { name: 'volume', label: 'Metros cúbicos aproximados', placeholder: 'Ej. 50 m³' },
-                    { name: 'date', label: 'Fecha deseada', type: 'date' },
-                    { name: 'message', label: 'Mensaje adicional', type: 'textarea', placeholder: 'Detalles especiales de tu obra...' },
+                    { name: 'volume', label: isEn ? 'Approximate cubic meters' : 'Metros cúbicos aproximados', placeholder: isEn ? 'e.g. 50 m³' : 'Ej. 50 m³' },
+                    { name: 'date', label: isEn ? 'Desired date' : 'Fecha deseada', type: 'date' },
+                    { name: 'message', label: isEn ? 'Additional message' : 'Mensaje adicional', type: 'textarea', placeholder: isEn ? 'Special details about your project...' : 'Detalles especiales de tu obra...' },
                   ]}
-                  submitLabel="Solicitar cotización"
+                  submitLabel={isEn ? 'Request quote' : 'Solicitar cotización'}
                   accentColor={accent}
                 />
               </div>
@@ -277,18 +284,18 @@ export default function Hormigones() {
               <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-20 blur-3xl" style={{ backgroundColor: accent }} />
               <div className="relative z-10 max-w-3xl">
                 <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                  ¿Listo para concretar tu proyecto?
+                  {isEn ? 'Ready to concrete your project?' : '¿Listo para concretar tu proyecto?'}
                 </h2>
                 <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">
-                  Contáctanos y recibe una cotización adaptada a las necesidades de tu obra.
+                  {isEn ? 'Contact us and receive a quote tailored to the needs of your project.' : 'Contáctanos y recibe una cotización adaptada a las necesidades de tu obra.'}
                 </p>
                 <div className="mt-9 flex flex-wrap gap-4">
                   <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 font-medium text-navy transition-colors duration-300 hover:bg-[#E8772E] hover:text-white">
-                    Solicitar cotización
+                    {isEn ? 'Request quote' : 'Solicitar cotización'}
                     <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
                   <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">
-                    Ver otras divisiones
+                    {isEn ? 'View other divisions' : 'Ver otras divisiones'}
                   </Link>
                 </div>
               </div>

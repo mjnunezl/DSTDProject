@@ -7,36 +7,43 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 import SEO from '../../components/SEO'
 import { seoMeta } from '../../data/seo'
 import { whatsappMessages } from '../../utils/whatsapp'
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 const accent = '#7FC241'
 const heroImg = 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop'
 
-const catalog = [
-  { name: 'Blocks', description: 'Bloques de concreto de alta resistencia en distintas medidas y acabados.', img: '/img/productos/blocks.jpeg' },
-  { name: 'Cemento', description: 'Cemento Portland de calidad garantizada para estructuras y acabados.', img: '/img/productos/cemento.jpg' },
-  { name: 'Varillas', description: 'Acero corrugado para refuerzo estructural según especificaciones técnicas.', img: '/img/productos/varillas.jpg' },
-  { name: 'Vigas H', description: 'Vigas de acero estructural para techos, entrepisos y grandes luces.', img: '/img/productos/vigas-h.jpg' },
-  { name: 'Aluzinc', description: 'Láminas de aluzinc resistentes a la corrosión para techos y cerramientos.', img: '/img/productos/aluzinc.jpg' },
-  { name: 'Materiales industriales', description: 'Insumos diversos para construcción, obra civil y proyectos especiales.', img: '/img/productos/materiales-industriales.webp' },
-]
-
-const sectors = [
-  { icon: Building2, label: 'Construcción residencial' },
-  { icon: Factory, label: 'Proyectos industriales' },
-  { icon: Warehouse, label: 'Obras comerciales' },
-  { icon: Hammer, label: 'Remodelaciones' },
-  { icon: Wrench, label: 'Infraestructura' },
-  { icon: PackageCheck, label: 'Obra pública' },
-]
-
-const processSteps = [
-  { step: '01', title: 'Solicitud', text: 'Nos indicas los productos, cantidades y lugar de entrega.' },
-  { step: '02', title: 'Cotización', text: 'Elaboramos una propuesta competitiva con tiempos de entrega claros.' },
-  { step: '03', title: 'Confirmación', text: 'Ajustamos detalles y confirmamos el pedido para producción o despacho.' },
-  { step: '04', title: 'Entrega', text: 'Transportamos los materiales puntualmente a tu obra o almacén.' },
-]
-
 export default function Industrias() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const ind = t.industrias
+  const isEn = language === 'en'
+
+  const catalog = [
+    { name: 'Blocks', description: isEn ? 'High-strength concrete blocks in different sizes and finishes.' : 'Bloques de concreto de alta resistencia en distintas medidas y acabados.', img: '/img/productos/blocks.jpeg' },
+    { name: 'Cemento', description: isEn ? 'Quality guaranteed Portland cement for structures and finishes.' : 'Cemento Portland de calidad garantizada para estructuras y acabados.', img: '/img/productos/cemento.jpg' },
+    { name: isEn ? 'Rebar' : 'Varillas', description: isEn ? 'Corrugated steel for structural reinforcement according to technical specifications.' : 'Acero corrugado para refuerzo estructural según especificaciones técnicas.', img: '/img/productos/varillas.jpg' },
+    { name: isEn ? 'H Beams' : 'Vigas H', description: isEn ? 'Structural steel beams for roofs, floors and large spans.' : 'Vigas de acero estructural para techos, entrepisos y grandes luces.', img: '/img/productos/vigas-h.jpg' },
+    { name: 'Aluzinc', description: isEn ? 'Corrosion-resistant aluzinc sheets for roofs and enclosures.' : 'Láminas de aluzinc resistentes a la corrosión para techos y cerramientos.', img: '/img/productos/aluzinc.jpg' },
+    { name: isEn ? 'Industrial materials' : 'Materiales industriales', description: isEn ? 'Various supplies for construction, civil works and special projects.' : 'Insumos diversos para construcción, obra civil y proyectos especiales.', img: '/img/productos/materiales-industriales.webp' },
+  ]
+
+  const sectors = [
+    { icon: Building2, label: isEn ? 'Residential construction' : 'Construcción residencial' },
+    { icon: Factory, label: isEn ? 'Industrial projects' : 'Proyectos industriales' },
+    { icon: Warehouse, label: isEn ? 'Commercial works' : 'Obras comerciales' },
+    { icon: Hammer, label: isEn ? 'Remodeling' : 'Remodelaciones' },
+    { icon: Wrench, label: isEn ? 'Infrastructure' : 'Infraestructura' },
+    { icon: PackageCheck, label: isEn ? 'Public works' : 'Obra pública' },
+  ]
+
+  const processSteps = [
+    { step: '01', title: isEn ? 'Request' : 'Solicitud', text: isEn ? 'You tell us the products, quantities and delivery location.' : 'Nos indicas los productos, cantidades y lugar de entrega.' },
+    { step: '02', title: isEn ? 'Quote' : 'Cotización', text: isEn ? 'We prepare a competitive proposal with clear delivery times.' : 'Elaboramos una propuesta competitiva con tiempos de entrega claros.' },
+    { step: '03', title: isEn ? 'Confirmation' : 'Confirmación', text: isEn ? 'We adjust details and confirm the order for production or dispatch.' : 'Ajustamos detalles y confirmamos el pedido para producción o despacho.' },
+    { step: '04', title: isEn ? 'Delivery' : 'Entrega', text: isEn ? 'We transport the materials punctually to your work site or warehouse.' : 'Transportamos los materiales puntualmente a tu obra o almacén.' },
+  ]
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/empresas/industrias']} pathname="/empresas/industrias" />
@@ -50,16 +57,16 @@ export default function Industrias() {
           <Reveal className="max-w-3xl">
             <div className="inline-flex items-center gap-2 mb-5">
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-              <span className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/80">División Industrias</span>
+              <span className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/80">{isEn ? 'Industries Division' : 'División Industrias'}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-normal text-white leading-[1.05]" style={{ letterSpacing: '-0.02em' }}>
-              El material que da <span style={{ color: accent }}>estructura</span> a tus ideas.
+              {ind.heroTitle}
             </h1>
             <p className="mt-6 text-base md:text-lg text-white/80 leading-relaxed max-w-2xl">
-              Blocks, cemento, varillas, vigas H y soluciones integrales para proyectos de construcción de todo tipo.
+              {ind.heroDesc}
             </p>
             <div className="mt-8">
-              <WhatsAppButton variant="inline" message={whatsappMessages.industrias} label="Cotizar por WhatsApp" />
+              <WhatsAppButton variant="inline" message={whatsappMessages.industrias} label={isEn ? 'Quote via WhatsApp' : 'Cotizar por WhatsApp'} />
             </div>
           </Reveal>
         </div>
@@ -90,21 +97,21 @@ export default function Industrias() {
                 </div>
                 <div className="absolute -bottom-8 -right-4 md:-right-8 rounded-2xl bg-white p-6 shadow-premium-lg max-w-[15rem]">
                   <Boxes size={28} style={{ color: accent }} strokeWidth={1.5} />
-                  <div className="mt-3 text-2xl font-semibold text-navy">+50 productos</div>
-                  <div className="text-sm text-graphite/60">en inventario permanente</div>
+                  <div className="mt-3 text-2xl font-semibold text-navy">+50 {isEn ? 'products' : 'productos'}</div>
+                  <div className="text-sm text-graphite/60">{isEn ? 'in permanent inventory' : 'en inventario permanente'}</div>
                 </div>
               </div>
             </Reveal>
             <Reveal delay={150}>
-              <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Sobre la división</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'About the division' : 'Sobre la división'}</span>
               <h2 className="mt-4 text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Calidad certificada, disponibilidad garantizada.
+                {isEn ? 'Certified quality, guaranteed availability.' : 'Calidad certificada, disponibilidad garantizada.'}
               </h2>
               <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">
-                Ofrecemos una gama completa de materiales industriales con calidad certificada, desde blocks y cemento hasta varillas y vigas H, todo bajo un estándar de excelencia y abastecimiento continuo.
+                {isEn ? 'We offer a complete range of industrial materials with certified quality, from blocks and cement to rebar and H beams, all under a standard of excellence and continuous supply.' : 'Ofrecemos una gama completa de materiales industriales con calidad certificada, desde blocks y cemento hasta varillas y vigas H, todo bajo un estándar de excelencia y abastecimiento continuo.'}
               </p>
               <div className="mt-8 space-y-3">
-                {['Stock permanente para cualquier escala', 'Asesoría técnica especializada', 'Precios competitivos por volumen'].map((t) => (
+                {[isEn ? 'Permanent stock for any scale' : 'Stock permanente para cualquier escala', isEn ? 'Specialized technical advice' : 'Asesoría técnica especializada', isEn ? 'Competitive volume pricing' : 'Precios competitivos por volumen'].map((t) => (
                   <div key={t} className="flex items-center gap-3">
                     <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
                     <span className="text-sm md:text-base text-navy">{t}</span>
@@ -124,10 +131,10 @@ export default function Industrias() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Catálogo</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Catalog' : 'Catálogo'}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Nuestra línea de productos.
+                {isEn ? 'Our product line.' : 'Nuestra línea de productos.'}
               </h2>
             </div>
           </Reveal>
@@ -142,7 +149,7 @@ export default function Industrias() {
                   <div className="p-6">
                     <p className="text-sm text-graphite/65 leading-relaxed">{p.description}</p>
                     <Link to="/contacto" className="mt-4 inline-flex items-center gap-1.5 text-sm font-medium transition-colors" style={{ color: accent }}>
-                      Cotizar
+                      {isEn ? 'Quote' : 'Cotizar'}
                       <ArrowRight size={15} className="transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   </div>
@@ -161,10 +168,10 @@ export default function Industrias() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Sectores atendidos</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Sectors served' : 'Sectores atendidos'}</span>
               </div>
               <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                ¿A quién servimos?
+                {isEn ? 'Who do we serve?' : '¿A quién servimos?'}
               </h2>
             </div>
           </Reveal>
@@ -189,8 +196,8 @@ export default function Industrias() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <div className="grid lg:grid-cols-12 gap-12 lg:gap-16">
             <Reveal className="lg:col-span-4">
-              <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>Proceso de cotización.</h2>
-              <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed">Simple, rápido y transparente, de la solicitud a la entrega.</p>
+              <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{isEn ? 'Quote process.' : 'Proceso de cotización.'}</h2>
+              <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed">{isEn ? 'Simple, fast and transparent, from request to delivery.' : 'Simple, rápido y transparente, de la solicitud a la entrega.'}</p>
             </Reveal>
             <div className="lg:col-span-8">
               <div className="relative border-l border-white/15 pl-8 space-y-10">
@@ -217,35 +224,35 @@ export default function Industrias() {
             <Reveal>
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Cotización</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Quote' : 'Cotización'}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>Cotizar materiales.</h2>
-              <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">Completa el formulario y recibe una propuesta adaptada a tu proyecto.</p>
+              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{ind.contactTitle}</h2>
+              <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">{isEn ? 'Fill out the form and receive a proposal tailored to your project.' : 'Completa el formulario y recibe una propuesta adaptada a tu proyecto.'}</p>
               <div className="mt-8 flex items-center gap-3 rounded-2xl border border-navy/10 bg-ivory p-5">
                 <Layers size={24} style={{ color: accent }} strokeWidth={1.5} />
-                <p className="text-sm text-graphite/70">Indícanos cantidades y lugar de entrega para una propuesta más precisa.</p>
+                <p className="text-sm text-graphite/70">{isEn ? 'Tell us quantities and delivery location for a more accurate proposal.' : 'Indícanos cantidades y lugar de entrega para una propuesta más precisa.'}</p>
               </div>
             </Reveal>
             <Reveal delay={150}>
               <div className="rounded-3xl glass-card p-8 shadow-premium">
                 <ContactForm
                   fields={[
-                    { name: 'name', label: 'Nombre', required: true, placeholder: 'Tu nombre' },
-                    { name: 'phone', label: 'Teléfono', required: true, placeholder: '829-367-2491' },
-                    { name: 'product', label: 'Producto de interés', type: 'select', options: [
-                      { value: '', label: 'Selecciona' },
+                    { name: 'name', label: isEn ? 'Name' : 'Nombre', required: true, placeholder: isEn ? 'Your name' : 'Tu nombre' },
+                    { name: 'phone', label: isEn ? 'Phone' : 'Teléfono', required: true, placeholder: '829-367-2491' },
+                    { name: 'product', label: isEn ? 'Product of interest' : 'Producto de interés', type: 'select', options: [
+                      { value: '', label: isEn ? 'Select' : 'Selecciona' },
                       { value: 'blocks', label: 'Blocks' },
-                      { value: 'cemento', label: 'Cemento' },
-                      { value: 'varillas', label: 'Varillas' },
-                      { value: 'vigas', label: 'Vigas H' },
+                      { value: 'cemento', label: isEn ? 'Cement' : 'Cemento' },
+                      { value: 'varillas', label: isEn ? 'Rebar' : 'Varillas' },
+                      { value: 'vigas', label: isEn ? 'H Beams' : 'Vigas H' },
                       { value: 'aluzinc', label: 'Aluzinc' },
-                      { value: 'otros', label: 'Otros materiales' },
+                      { value: 'otros', label: isEn ? 'Other materials' : 'Otros materiales' },
                     ]},
-                    { name: 'quantity', label: 'Cantidad aproximada', placeholder: 'Ej. 500 blocks' },
-                    { name: 'location', label: 'Ubicación de entrega', placeholder: 'Dirección o ciudad' },
-                    { name: 'message', label: 'Mensaje adicional', type: 'textarea', placeholder: 'Detalles del proyecto...' },
+                    { name: 'quantity', label: isEn ? 'Approximate quantity' : 'Cantidad aproximada', placeholder: isEn ? 'e.g. 500 blocks' : 'Ej. 500 blocks' },
+                    { name: 'location', label: isEn ? 'Delivery location' : 'Ubicación de entrega', placeholder: isEn ? 'Address or city' : 'Dirección o ciudad' },
+                    { name: 'message', label: isEn ? 'Additional message' : 'Mensaje adicional', type: 'textarea', placeholder: isEn ? 'Project details...' : 'Detalles del proyecto...' },
                   ]}
-                  submitLabel="Solicitar cotización"
+                  submitLabel={isEn ? 'Request quote' : 'Solicitar cotización'}
                   accentColor={accent}
                 />
               </div>
@@ -261,14 +268,14 @@ export default function Industrias() {
             <div className="relative overflow-hidden rounded-[2rem] bg-navy px-8 py-16 md:px-16 md:py-24 shadow-premium">
               <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-20 blur-3xl" style={{ backgroundColor: accent }} />
               <div className="relative z-10 max-w-3xl">
-                <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>¿Necesitas materiales para tu obra?</h2>
-                <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">Cotiza con nosotros y recibe una propuesta adaptada a tu proyecto.</p>
+                <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{isEn ? 'Need materials for your project?' : '¿Necesitas materiales para tu obra?'}</h2>
+                <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">{isEn ? 'Get a quote from us and receive a proposal tailored to your project.' : 'Cotiza con nosotros y recibe una propuesta adaptada a tu proyecto.'}</p>
                 <div className="mt-9 flex flex-wrap gap-4">
                   <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 font-medium text-navy transition-colors duration-300 hover:bg-[#7FC241] hover:text-white">
-                    Solicitar cotización
+                    {isEn ? 'Request quote' : 'Solicitar cotización'}
                     <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
-                  <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">Ver otras divisiones</Link>
+                  <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">{isEn ? 'View other divisions' : 'Ver otras divisiones'}</Link>
                 </div>
               </div>
             </div>

@@ -17,14 +17,8 @@ import ProjectCard from '../components/ProjectCard'
 import SEO from '../components/SEO'
 import { seoMeta } from '../data/seo'
 import { projects } from '../data/projects'
-
-const filters = [
-  { key: 'all', label: 'Todos' },
-  { key: 'hormigones', label: 'Hormigones' },
-  { key: 'industrias', label: 'Industrias' },
-  { key: 'immobiliare', label: 'Immobiliare' },
-  { key: 'agregados', label: 'Agregados' },
-]
+import { useLanguage } from '../context/LanguageContext'
+import { getTranslation } from '../i18n/translations'
 
 const categoryAccent: Record<string, string> = {
   hormigones: '#E8772E',
@@ -34,17 +28,29 @@ const categoryAccent: Record<string, string> = {
   general: '#C8A45D',
 }
 
-const capabilities = [
-  { icon: HardHat, title: 'Obras y construcción', text: 'Ejecución y soporte para proyectos de construcción de distintas escalas.' },
-  { icon: Building, title: 'Proyectos inmobiliarios', text: 'Desarrollo, inversión y financiamiento con visión a futuro.' },
-  { icon: Factory, title: 'Suministro de materiales', text: 'Blocks, varillas, cemento, vigas H y materiales industriales.' },
-  { icon: Mountain, title: 'Agregados', text: 'Arena, grava y piedra para obras y proyectos.' },
-  { icon: Handshake, title: 'Soluciones industriales', text: 'Colaboraciones estratégicas que multiplican el alcance del grupo.' },
-  { icon: Briefcase, title: 'Desarrollo corporativo', text: 'Estructura empresarial sólida orientada al crecimiento sostenible.' },
-]
-
 export default function Proyectos() {
   const [activeFilter, setActiveFilter] = useState('all')
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const p = t.projectsPage
+  const isEn = language === 'en'
+
+  const filters = [
+    { key: 'all', label: p.filters.all },
+    { key: 'hormigones', label: p.filters.hormigones },
+    { key: 'industrias', label: p.filters.industrias },
+    { key: 'immobiliare', label: p.filters.immobiliare },
+    { key: 'agregados', label: p.filters.agregados },
+  ]
+
+  const capabilities = [
+    { icon: HardHat, title: isEn ? 'Construction works' : 'Obras y construcción', text: isEn ? 'Execution and support for construction projects of different scales.' : 'Ejecución y soporte para proyectos de construcción de distintas escalas.' },
+    { icon: Building, title: isEn ? 'Real estate projects' : 'Proyectos inmobiliarios', text: isEn ? 'Development, investment and financing with a vision for the future.' : 'Desarrollo, inversión y financiamiento con visión a futuro.' },
+    { icon: Factory, title: isEn ? 'Material supply' : 'Suministro de materiales', text: isEn ? 'Blocks, rebar, cement, H beams and industrial materials.' : 'Blocks, varillas, cemento, vigas H y materiales industriales.' },
+    { icon: Mountain, title: isEn ? 'Aggregates' : 'Agregados', text: isEn ? 'Sand, gravel and stone for works and projects.' : 'Arena, grava y piedra para obras y proyectos.' },
+    { icon: Handshake, title: isEn ? 'Industrial solutions' : 'Soluciones industriales', text: isEn ? 'Strategic collaborations that multiply the group\'s reach.' : 'Colaboraciones estratégicas que multiplican el alcance del grupo.' },
+    { icon: Briefcase, title: isEn ? 'Corporate development' : 'Desarrollo corporativo', text: isEn ? 'Solid business structure oriented to sustainable growth.' : 'Estructura empresarial sólida orientada al crecimiento sostenible.' },
+  ]
 
   const filtered = activeFilter === 'all'
     ? projects
@@ -54,9 +60,9 @@ export default function Proyectos() {
     <div className="bg-[#F2EFE9]">
       <SEO {...seoMeta['/proyectos']} pathname="/proyectos" />
       <PageHero
-        eyebrow="Capacidades"
-        title="Capacidades que cubren todo el ciclo del desarrollo."
-        description="Desde la materia prima hasta el proyecto terminado, el grupo aporta valor en cada etapa."
+        eyebrow={p.eyebrow}
+        title={p.title}
+        description={p.description}
       />
 
       {/* Capabilities */}
@@ -64,7 +70,7 @@ export default function Proyectos() {
         <BackgroundDecor tone="light" />
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <Reveal>
-            <SectionHeading eyebrow="Proyectos y capacidades" tone="light" title="Áreas de especialización." />
+            <SectionHeading eyebrow={p.galleryEyebrow} tone="light" title={p.galleryTitle} />
           </Reveal>
 
           <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
@@ -94,7 +100,7 @@ export default function Proyectos() {
         <BackgroundDecor tone="light" dots={false} />
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <Reveal>
-            <SectionHeading eyebrow="Galería" tone="light" title="Proyectos realizados." />
+            <SectionHeading eyebrow={p.galleryEyebrow} tone="light" title={p.galleryTitle} />
           </Reveal>
 
           {/* Filters */}
@@ -142,18 +148,18 @@ export default function Proyectos() {
               <div className="pointer-events-none absolute -bottom-24 -left-16 h-72 w-72 rounded-full bg-navy-light/40 blur-3xl" />
               <div className="relative z-10 max-w-3xl">
                 <h2 className="text-3xl md:text-4xl lg:text-5xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                  Construyamos nuevas oportunidades juntos.
+                  {p.ctaTitle}
                 </h2>
                 <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">
-                  Conecta con DSTD Enterprises y conoce cómo nuestras divisiones pueden aportar valor a tu próximo proyecto.
+                  {p.ctaDesc}
                 </p>
                 <div className="mt-9 flex flex-wrap gap-4">
                   <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 font-medium text-navy transition-colors duration-300 hover:bg-champagne hover:text-white">
-                    Contactar
+                    {p.ctaButton}
                     <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
                   <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">
-                    Ver empresas
+                    {p.ctaExplore}
                   </Link>
                 </div>
               </div>

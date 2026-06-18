@@ -7,36 +7,43 @@ import WhatsAppButton from '../../components/WhatsAppButton'
 import SEO from '../../components/SEO'
 import { seoMeta } from '../../data/seo'
 import { whatsappMessages } from '../../utils/whatsapp'
+import { useLanguage } from '../../context/LanguageContext'
+import { getTranslation } from '../../i18n/translations'
 
 const accent = '#8B6B43'
 const heroImg = '/img/agregados.jpg'
 
-const catalog = [
-  { name: 'Arena', description: 'Arena fina y gruesa para construcción, acabados y obras civiles de todo tipo.', img: '/img/productos/arena.jpg', tall: true },
-  { name: 'Grava', description: 'Grava de distintos tamaños para bases, asfaltos, concretos y filtros.', img: '/img/productos/grava.webp', tall: false },
-  { name: 'Piedra', description: 'Piedra picada, canto rodado y material para mampostería y gaviones.', img: '/img/productos/piedra.webp', tall: false },
-  { name: 'Agregados mixtos', description: 'Mezclas específicas según las especificaciones técnicas de tu proyecto.', img: '/img/productos/agregados-mixtos.jpg', tall: false },
-  { name: 'Material selecto', description: 'Material procesado y clasificado para usos especiales y acabados.', img: '/img/productos/material-selecto.jpg', tall: true },
-  { name: 'Suministro para obras', description: 'Abastecimiento continuo para proyectos de cualquier escala.', img: '/img/productos/suministro-para-obras.jpg', tall: false },
-]
-
-const uses = [
-  { icon: Layers, label: 'Concreto y morteros' },
-  { icon: Construction, label: 'Bases y sub-bases' },
-  { icon: Hammer, label: 'Asfalto' },
-  { icon: Mountain, label: 'Mampostería' },
-  { icon: Droplets, label: 'Drenaje y filtros' },
-  { icon: Waves, label: 'Rellenos y terraplén' },
-]
-
-const processSteps = [
-  { step: '01', title: 'Solicitud', text: 'Nos indicas el material, cantidad y lugar de entrega.' },
-  { step: '02', title: 'Cotización', text: 'Preparamos una propuesta con precio y tiempo de entrega.' },
-  { step: '03', title: 'Confirmación', text: 'Ajustamos detalles y confirmamos el pedido y la logística.' },
-  { step: '04', title: 'Entrega', text: 'Transportamos los agregados puntualmente a tu obra.' },
-]
-
 export default function Agregados() {
+  const { language } = useLanguage()
+  const t = getTranslation(language)
+  const a = t.agregados
+  const isEn = language === 'en'
+
+  const catalog = [
+    { name: isEn ? 'Sand' : 'Arena', description: isEn ? 'Fine and coarse sand for construction, finishes and all types of civil works.' : 'Arena fina y gruesa para construcción, acabados y obras civiles de todo tipo.', img: '/img/productos/arena.jpg', tall: true },
+    { name: isEn ? 'Gravel' : 'Grava', description: isEn ? 'Gravel of different sizes for bases, asphalt, concrete and filters.' : 'Grava de distintos tamaños para bases, asfaltos, concretos y filtros.', img: '/img/productos/grava.webp', tall: false },
+    { name: isEn ? 'Stone' : 'Piedra', description: isEn ? 'Crushed stone, river stone and material for masonry and gabions.' : 'Piedra picada, canto rodado y material para mampostería y gaviones.', img: '/img/productos/piedra.webp', tall: false },
+    { name: isEn ? 'Mixed aggregates' : 'Agregados mixtos', description: isEn ? 'Specific blends according to your project technical specifications.' : 'Mezclas específicas según las especificaciones técnicas de tu proyecto.', img: '/img/productos/agregados-mixtos.jpg', tall: false },
+    { name: isEn ? 'Selected material' : 'Material selecto', description: isEn ? 'Processed and classified material for special uses and finishes.' : 'Material procesado y clasificado para usos especiales y acabados.', img: '/img/productos/material-selecto.jpg', tall: true },
+    { name: isEn ? 'Work supply' : 'Suministro para obras', description: isEn ? 'Continuous supply for projects of any scale.' : 'Abastecimiento continuo para proyectos de cualquier escala.', img: '/img/productos/suministro-para-obras.jpg', tall: false },
+  ]
+
+  const uses = [
+    { icon: Layers, label: isEn ? 'Concrete and mortars' : 'Concreto y morteros' },
+    { icon: Construction, label: isEn ? 'Bases and sub-bases' : 'Bases y sub-bases' },
+    { icon: Hammer, label: 'Asfalto' },
+    { icon: Mountain, label: isEn ? 'Masonry' : 'Mampostería' },
+    { icon: Droplets, label: isEn ? 'Drainage and filters' : 'Drenaje y filtros' },
+    { icon: Waves, label: isEn ? 'Fills and embankments' : 'Rellenos y terraplén' },
+  ]
+
+  const processSteps = [
+    { step: '01', title: isEn ? 'Request' : 'Solicitud', text: isEn ? 'You tell us the material, quantity and delivery location.' : 'Nos indicas el material, cantidad y lugar de entrega.' },
+    { step: '02', title: isEn ? 'Quote' : 'Cotización', text: isEn ? 'We prepare a proposal with price and delivery time.' : 'Preparamos una propuesta con precio y tiempo de entrega.' },
+    { step: '03', title: isEn ? 'Confirmation' : 'Confirmación', text: isEn ? 'We adjust details and confirm the order and logistics.' : 'Ajustamos detalles y confirmamos el pedido y la logística.' },
+    { step: '04', title: isEn ? 'Delivery' : 'Entrega', text: isEn ? 'We transport the aggregates punctually to your work site.' : 'Transportamos los agregados puntualmente a tu obra.' },
+  ]
+
   return (
     <div className="bg-ivory">
       <SEO {...seoMeta['/empresas/agregados']} pathname="/empresas/agregados" />
@@ -49,13 +56,13 @@ export default function Agregados() {
           <Reveal>
             <div className="inline-flex items-center gap-2 mb-5">
               <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: '#d4b483' }} />
-              <span className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/80">División Agregados</span>
+              <span className="text-xs md:text-sm uppercase tracking-[0.25em] text-white/80">{isEn ? 'Aggregates Division' : 'División Agregados'}</span>
             </div>
             <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-normal text-white leading-[1.05] max-w-4xl" style={{ letterSpacing: '-0.02em' }}>
-              La base sólida de toda <span style={{ color: '#d4b483' }}>construcción</span>.
+              {a.heroTitle}
             </h1>
             <p className="mt-6 text-base md:text-lg text-white/80 leading-relaxed max-w-2xl">
-              Arena, grava, piedra y materiales áridos seleccionados y procesados con control de calidad para obras de toda escala.
+              {a.heroDesc}
             </p>
           </Reveal>
         </div>
@@ -65,7 +72,7 @@ export default function Agregados() {
       <section className="relative z-20" style={{ backgroundColor: accent }}>
         <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 py-6 text-white/90">
-            {['Arena', 'Grava', 'Piedra', 'Material selecto', 'Agregados mixtos'].map((m) => (
+            {[isEn ? 'Sand' : 'Arena', isEn ? 'Gravel' : 'Grava', isEn ? 'Stone' : 'Piedra', isEn ? 'Selected material' : 'Material selecto', isEn ? 'Mixed aggregates' : 'Agregados mixtos'].map((m) => (
               <span key={m} className="text-sm md:text-base font-medium uppercase tracking-wider">{m}</span>
             ))}
           </div>
@@ -78,15 +85,15 @@ export default function Agregados() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
             <Reveal>
-              <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Sobre la división</span>
+              <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'About the division' : 'Sobre la división'}</span>
               <h2 className="mt-4 text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>
-                Material procesado, calidad garantizada.
+                {isEn ? 'Processed material, guaranteed quality.' : 'Material procesado, calidad garantizada.'}
               </h2>
               <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">
-                Proveemos agregados seleccionados y procesados con control de calidad, garantizando que cada material cumpla con las especificaciones técnicas requeridas en obra.
+                {isEn ? 'We provide selected and processed aggregates with quality control, guaranteeing that each material meets the technical specifications required on site.' : 'Proveemos agregados seleccionados y procesados con control de calidad, garantizando que cada material cumpla con las especificaciones técnicas requeridas en obra.'}
               </p>
               <div className="mt-8 grid grid-cols-3 gap-4">
-                {[{ icon: ShieldCheck, t: 'Calidad certificada' }, { icon: Truck, t: 'Logística propia' }, { icon: Layers, t: 'Volumen a escala' }].map((f) => (
+                {[{ icon: ShieldCheck, t: isEn ? 'Certified quality' : 'Calidad certificada' }, { icon: Truck, t: isEn ? 'Own logistics' : 'Logística propia' }, { icon: Layers, t: isEn ? 'Volume at scale' : 'Volumen a escala' }].map((f) => (
                   <div key={f.t} className="rounded-2xl border border-navy/10 bg-white p-4 text-center">
                     <f.icon size={22} className="mx-auto" style={{ color: accent }} strokeWidth={1.5} />
                     <div className="mt-2 text-xs font-medium text-navy leading-tight">{f.t}</div>
@@ -99,7 +106,7 @@ export default function Agregados() {
                 <img src="/img/productos/grava.webp" alt="Cantera DSTD Agregados" className="h-full w-full object-cover" loading="lazy" />
                 <div className="absolute bottom-6 left-6 rounded-2xl bg-white/95 px-6 py-4 backdrop-blur">
                   <div className="text-3xl font-semibold" style={{ color: accent }}>+10k m³</div>
-                  <div className="text-xs text-graphite/60">suministrados al año</div>
+                  <div className="text-xs text-graphite/60">{isEn ? 'supplied per year' : 'suministrados al año'}</div>
                 </div>
               </div>
             </Reveal>
@@ -115,9 +122,9 @@ export default function Agregados() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Catálogo</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Catalog' : 'Catálogo'}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>Nuestros materiales.</h2>
+              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{isEn ? 'Our materials.' : 'Nuestros materiales.'}</h2>
             </div>
           </Reveal>
           <div className="mt-14 columns-1 sm:columns-2 lg:columns-3 gap-6 [column-fill:_balance]">
@@ -130,7 +137,7 @@ export default function Agregados() {
                     <h3 className="text-xl font-medium text-white">{p.name}</h3>
                     <p className="mt-1.5 text-sm text-white/80 leading-relaxed">{p.description}</p>
                     <Link to="/contacto" className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-white">
-                      Cotizar
+                      {isEn ? 'Quote' : 'Cotizar'}
                       <ArrowRight size={14} className="transition-transform duration-300 group-hover:translate-x-1" />
                     </Link>
                   </div>
@@ -149,9 +156,9 @@ export default function Agregados() {
             <div className="max-w-3xl">
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Usos en construcción</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Construction uses' : 'Usos en construcción'}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>¿Dónde se utilizan?</h2>
+              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{isEn ? 'Where are they used?' : '¿Dónde se utilizan?'}</h2>
             </div>
           </Reveal>
           <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -175,8 +182,8 @@ export default function Agregados() {
         <div className="relative z-10 mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
           <Reveal>
             <div className="max-w-3xl">
-              <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>Proceso de pedido.</h2>
-              <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed">Simple, rápido y sin complicaciones.</p>
+              <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{isEn ? 'Order process.' : 'Proceso de pedido.'}</h2>
+              <p className="mt-5 text-base md:text-lg text-white/70 leading-relaxed">{isEn ? 'Simple, fast and hassle-free.' : 'Simple, rápido y sin complicaciones.'}</p>
             </div>
           </Reveal>
           <div className="mt-14 grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -201,34 +208,34 @@ export default function Agregados() {
             <Reveal>
               <div className="inline-flex items-center gap-2 mb-5">
                 <span className="h-1.5 w-1.5 rounded-full" style={{ backgroundColor: accent }} />
-                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">Cotización</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-navy/50">{isEn ? 'Quote' : 'Cotización'}</span>
               </div>
-              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>Cotizar agregados.</h2>
-              <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">Completa el formulario y recibe una propuesta adaptada a tu obra.</p>
+              <h2 className="text-3xl md:text-4xl font-normal text-navy leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{a.contactTitle}</h2>
+              <p className="mt-5 text-base md:text-lg text-graphite/65 leading-relaxed">{isEn ? 'Fill out the form and receive a proposal tailored to your project.' : 'Completa el formulario y recibe una propuesta adaptada a tu obra.'}</p>
               <div className="mt-8">
-                <WhatsAppButton variant="inline" message={whatsappMessages.agregados} label="Cotizar por WhatsApp" />
+                <WhatsAppButton variant="inline" message={whatsappMessages.agregados} label={isEn ? 'Quote via WhatsApp' : 'Cotizar por WhatsApp'} />
               </div>
             </Reveal>
             <Reveal delay={150}>
               <div className="rounded-3xl glass-card p-8 shadow-premium">
                 <ContactForm
                   fields={[
-                    { name: 'name', label: 'Nombre', required: true, placeholder: 'Tu nombre' },
-                    { name: 'phone', label: 'Teléfono', required: true, placeholder: '829-367-2491' },
-                    { name: 'material', label: 'Material de interés', type: 'select', options: [
-                      { value: '', label: 'Selecciona' },
-                      { value: 'arena', label: 'Arena' },
-                      { value: 'grava', label: 'Grava' },
-                      { value: 'piedra', label: 'Piedra' },
-                      { value: 'mixto', label: 'Agregado mixto' },
-                      { value: 'otro', label: 'Otro' },
+                    { name: 'name', label: isEn ? 'Name' : 'Nombre', required: true, placeholder: isEn ? 'Your name' : 'Tu nombre' },
+                    { name: 'phone', label: isEn ? 'Phone' : 'Teléfono', required: true, placeholder: '829-367-2491' },
+                    { name: 'material', label: isEn ? 'Material of interest' : 'Material de interés', type: 'select', options: [
+                      { value: '', label: isEn ? 'Select' : 'Selecciona' },
+                      { value: 'arena', label: isEn ? 'Sand' : 'Arena' },
+                      { value: 'grava', label: isEn ? 'Gravel' : 'Grava' },
+                      { value: 'piedra', label: isEn ? 'Stone' : 'Piedra' },
+                      { value: 'mixto', label: isEn ? 'Mixed aggregate' : 'Agregado mixto' },
+                      { value: 'otro', label: isEn ? 'Other' : 'Otro' },
                     ]},
-                    { name: 'quantity', label: 'Cantidad aproximada', placeholder: 'Ej. 30 m³' },
-                    { name: 'location', label: 'Ubicación de entrega', placeholder: 'Dirección o ciudad' },
-                    { name: 'date', label: 'Fecha deseada', type: 'date' },
-                    { name: 'message', label: 'Mensaje adicional', type: 'textarea', placeholder: 'Detalles especiales de tu obra...' },
+                    { name: 'quantity', label: isEn ? 'Approximate quantity' : 'Cantidad aproximada', placeholder: isEn ? 'e.g. 30 m³' : 'Ej. 30 m³' },
+                    { name: 'location', label: isEn ? 'Delivery location' : 'Ubicación de entrega', placeholder: isEn ? 'Address or city' : 'Dirección o ciudad' },
+                    { name: 'date', label: isEn ? 'Desired date' : 'Fecha deseada', type: 'date' },
+                    { name: 'message', label: isEn ? 'Additional message' : 'Mensaje adicional', type: 'textarea', placeholder: isEn ? 'Special details about your project...' : 'Detalles especiales de tu obra...' },
                   ]}
-                  submitLabel="Solicitar cotización"
+                  submitLabel={isEn ? 'Request quote' : 'Solicitar cotización'}
                   accentColor={accent}
                 />
               </div>
@@ -244,14 +251,14 @@ export default function Agregados() {
             <div className="relative overflow-hidden rounded-[2rem] bg-navy px-8 py-16 md:px-16 md:py-24 shadow-premium">
               <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full opacity-20 blur-3xl" style={{ backgroundColor: accent }} />
               <div className="relative z-10 max-w-3xl">
-                <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>¿Necesitas agregados para tu proyecto?</h2>
-                <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">Cotiza con nosotros y recibe una propuesta adaptada a los requerimientos de tu obra.</p>
+                <h2 className="text-3xl md:text-4xl font-normal text-white leading-[1.1]" style={{ letterSpacing: '-0.03em' }}>{isEn ? 'Need aggregates for your project?' : '¿Necesitas agregados para tu proyecto?'}</h2>
+                <p className="mt-6 text-base md:text-lg text-white/75 leading-relaxed">{isEn ? 'Get a quote from us and receive a proposal tailored to your project requirements.' : 'Cotiza con nosotros y recibe una propuesta adaptada a los requerimientos de tu obra.'}</p>
                 <div className="mt-9 flex flex-wrap gap-4">
                   <Link to="/contacto" className="group inline-flex items-center gap-2 rounded-lg bg-white px-8 py-3 font-medium text-navy transition-colors duration-300 hover:bg-[#8B6B43] hover:text-white">
-                    Solicitar cotización
+                    {isEn ? 'Request quote' : 'Solicitar cotización'}
                     <ArrowRight size={18} className="transition-transform duration-300 group-hover:translate-x-0.5" />
                   </Link>
-                  <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">Ver otras divisiones</Link>
+                  <Link to="/empresas" className="liquid-glass rounded-lg border border-white/20 px-8 py-3 font-medium text-white transition-colors duration-300 hover:bg-white hover:text-navy">{isEn ? 'View other divisions' : 'Ver otras divisiones'}</Link>
                 </div>
               </div>
             </div>
