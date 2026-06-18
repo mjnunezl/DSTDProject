@@ -29,7 +29,7 @@ export default function MainLayout() {
         <Outlet />
       </main>
       <Footer />
-      <WhatsAppButton variant="floating" message={message} className="!bottom-6 !left-6" />
+      <WhatsAppButton variant="floating" message={message} />
       <VirtualAssistant />
       <BackToTop />
     </>

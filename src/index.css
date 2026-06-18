@@ -17,6 +17,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Safe area bottom padding for fixed elements on mobile */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}
+
 /* Decorative animated background elements */
 @keyframes floatA {
   0%, 100% { transform: translate(0, 0) scale(1); }

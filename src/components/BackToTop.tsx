@@ -40,7 +40,7 @@ export default function BackToTop() {
       onClick={scrollToTop}
       aria-label="Volver arriba"
       className={[
-        'fixed bottom-[6.5rem] right-6 z-[80]',
+        'fixed bottom-[8.5rem] right-6 sm:bottom-[6.5rem] z-[80]',
         'flex h-11 w-11 items-center justify-center rounded-full',
         'bg-navy text-white shadow-lg',
         'transition-all duration-300',
