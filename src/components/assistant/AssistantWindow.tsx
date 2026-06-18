@@ -15,8 +15,6 @@ export default function AssistantWindow({ messages, onQuickQuestion }: Props) {
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const showQuickQuestions = messages.length <= 2
-
   return (
     <div
       className={[
@@ -49,13 +47,11 @@ export default function AssistantWindow({ messages, onQuickQuestion }: Props) {
         <div ref={bottomRef} />
       </div>
 
-      {/* Quick Questions */}
-      {showQuickQuestions && (
-        <div className="shrink-0 border-t border-navy/5 px-4 py-3 bg-white/60">
-          <p className="mb-2 text-[11px] uppercase tracking-wider text-navy/40 font-medium">Preguntas rápidas</p>
-          <QuickQuestions onSelect={onQuickQuestion} />
-        </div>
-      )}
+      {/* Quick Questions - always visible */}
+      <div className="shrink-0 border-t border-navy/5 px-4 py-3 bg-white/60">
+        <p className="mb-2 text-[11px] uppercase tracking-wider text-navy/40 font-medium">Preguntas rápidas</p>
+        <QuickQuestions onSelect={onQuickQuestion} />
+      </div>
     </div>
   )
 }
