@@ -90,14 +90,23 @@ export default function Navbar() {
           </Link>
         </div>
 
-        {/* Mobile Toggle */}
-        <button
-          className={`md:hidden ${overlay ? 'text-white' : 'text-navy'}`}
-          onClick={() => setMobileOpen(!mobileOpen)}
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
+        {/* Mobile: Language + Hamburger */}
+        <div className="flex items-center gap-2 md:hidden">
+          <button
+            onClick={toggleLanguage}
+            className={`px-2.5 py-1 rounded-md text-xs font-semibold tracking-wider border backdrop-blur-sm transition-all duration-300 ${langBtnClass}`}
+            aria-label="Change language"
+          >
+            {language === 'es' ? 'EN' : 'ES'}
+          </button>
+          <button
+            className={overlay ? 'text-white' : 'text-navy'}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle menu"
+          >
+            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
       </div>
 
       {/* Mobile Menu */}
