@@ -41,7 +41,7 @@ export default function VirtualAssistant() {
   }
 
   return (
-    <div className="fixed bottom-10 right-6 sm:bottom-6 z-[70] flex flex-col items-end gap-3">
+    <div className="fixed bottom-10 right-6 sm:bottom-6 z-[70] flex flex-col items-end gap-3 pointer-events-none">
       {/* Chat window */}
       <div
         className={[
@@ -59,7 +59,9 @@ export default function VirtualAssistant() {
       </div>
 
       {/* Toggle button */}
-      <AssistantButton open={open} onClick={handleToggle} />
+      <div className="pointer-events-auto">
+        <AssistantButton open={open} onClick={handleToggle} />
+      </div>
     </div>
   )
 }
