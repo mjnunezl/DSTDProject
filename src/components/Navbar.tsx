@@ -76,7 +76,7 @@ export default function Navbar() {
             <path
               d="M3 2 C11 14 11 30 3 42"
               stroke="url(#navDivider)"
-              strokeWidth="1.5"
+              strokeWidth="3"
               strokeLinecap="round"
             />
           </svg>
