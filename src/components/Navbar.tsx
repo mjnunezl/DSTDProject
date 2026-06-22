@@ -47,19 +47,32 @@ export default function Navbar() {
     <nav className={`px-6 md:px-12 lg:px-16 py-4 relative z-50 ${overlay ? '' : 'bg-navy-deep'}`}>
       <div className={`max-w-7xl mx-auto rounded-xl px-4 py-2 flex items-center justify-between ${overlay ? 'liquid-glass' : 'bg-ivory border border-navy/10'}`}>
         {/* Logo */}
-        <div className="flex items-center">
-          <Link to="/" className="flex items-baseline gap-2">
-            <span className="h-2 w-2 self-center rounded-full bg-[#C8A45D]" />
-            <span className={`font-gothic text-2xl leading-none ${overlay ? 'text-white' : 'text-navy'}`}>
+        <div className="flex items-center gap-3">
+          <Link to="/" className="flex items-center gap-2">
+            <span className="h-2 w-2 rounded-full bg-[#C8A45D]" />
+            <span className={`font-gothic text-2xl leading-none translate-y-[2px] ${overlay ? 'text-white' : 'text-navy'}`}>
               DSTD
             </span>
-            <span className={`text-sm font-medium uppercase tracking-widest ${overlay ? 'text-white/70' : 'text-navy/70'}`}>
+            <span className={`text-sm font-medium uppercase tracking-widest leading-none ${overlay ? 'text-white/70' : 'text-navy/70'}`}>
               Enterprises
             </span>
           </Link>
-          <span className={`ml-3 text-3xl font-light leading-none ${overlay ? 'text-white/30' : 'text-navy/25'}`}>
-            )
-          </span>
+          {/* Curved divider */}
+          <svg
+            width="18"
+            height="40"
+            viewBox="0 0 18 40"
+            fill="none"
+            className={overlay ? 'text-white/30' : 'text-navy/25'}
+            aria-hidden="true"
+          >
+            <path
+              d="M4 2 Q15 20 4 38"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+            />
+          </svg>
         </div>
 
         {/* Center Links - Desktop */}
