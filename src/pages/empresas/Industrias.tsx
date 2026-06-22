@@ -74,7 +74,7 @@ export default function Industrias() {
         <div className="absolute inset-x-0 bottom-0 z-10 border-t border-white/10 bg-navy-deep/40 backdrop-blur-md">
           <div className="mx-auto max-w-7xl px-6 md:px-12 lg:px-16">
             <div className="flex flex-wrap items-center gap-x-8 gap-y-2 py-5">
-              {['Blocks', 'Cemento', 'Varillas', 'Vigas H', 'Aluzinc'].map((m, i) => (
+              {['Blocks', 'Cemento', 'Varillas', 'Vigas H', 'Aluzinc', isEn ? 'Concrete' : 'Concreto', isEn ? 'Fill material' : 'Material para relleno', isEn ? 'Industrial iron' : 'Hierros industriales'].map((m, i) => (
                 <div key={m} className="flex items-center gap-8">
                   {i > 0 && <span className="hidden sm:block h-1 w-1 rounded-full bg-white/30" />}
                   <span className="text-sm font-medium uppercase tracking-wider text-white/85">{m}</span>
